@@ -1,20 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HeroController!{% endblock %}
+{% block title %}Liste des Héros{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
+    <h2>Nos Héros</h2>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Hoarau/OneDrive/Desktop/workspace/Symfony/FoxLeague/src/Controller/HeroController.php</code></li>
-        <li>Your template at <code>C:/Users/Hoarau/OneDrive/Desktop/workspace/Symfony/FoxLeague/templates/hero/index.html.twig</code></li>
-    </ul>
+    <div class="card-container">
+        {% for hero in heros %}
+            <div class="card">
+                <div class="card-header">
+                    {{ hero.name }}
+                </div>
+                <div class="card-body">
+                    <img src="{{ hero.image }}" alt="{{ hero.name }}" style="max-width: 100%; border-radius: 10px;">
+                    <h3>Identité Secrète : {{ hero.secretIdendity ? hero.secretIdendity : 'Inconnue' }}</h3>
+                    <p>Âge : {{ hero.age ? hero.age : 'Non précisé' }}</p>
+                    <p>Missions remarquables : {{ hero.notableMission ? hero.notableMission : 'Non spécifiées' }}</p>
+                    <p>Taux de Succès : {{ hero.succesRate }}%</p>
+                    <p>Taux d'Échec : {{ hero.failRate }}%</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('hero_show', { id: hero.id }) }}" class="navbar-link">Voir</a>
+                    <a href="{{ path('hero_edit', { id: hero.id }) }}" class="navbar-link">Modifier</a>
+                    <form action="{{ path('hero_delete', { id: hero.id }) }}" method="post" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ hero.id) }}">
+                        <button type="submit" style="border: none; background: none; color: red; cursor: pointer; font-size: 1rem;">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun héros trouvé.</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
