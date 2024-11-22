@@ -1,0 +1,89 @@
+/* Conteneur global pour les cartes */
+.hero-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Carte individuelle */
+.hero-card {
+    background: linear-gradient(145deg, #fff6e5, #f7e5cb); /* Couleur sable avec dégradé */
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Image du héros */
+.hero-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid #f5a623; /* Ligne orange renard */
+}
+
+/* Titre de la carte */
+.hero-card h3 {
+    font-size: 1.5rem;
+    color: #f5a623; /* Orange renard */
+    margin: 15px 0;
+    text-transform: uppercase;
+}
+
+/* Détails du héros */
+.hero-card p {
+    font-size: 1rem;
+    color: #555; /* Gris foncé */
+    margin: 10px 15px;
+    line-height: 1.5;
+}
+
+/* Footer avec les boutons */
+.hero-card-footer {
+    background-color: #fff;
+    border-top: 2px solid #f5a623; /* Ligne orange renard */
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hero-card-footer a,
+.hero-card-footer form button {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white;
+}
+
+.hero-card-footer a {
+    background-color: #f5a623; /* Orange renard */
+}
+
+.hero-card-footer a:hover {
+    background-color: #ffb84d; /* Doré clair */
+    transform: scale(1.1);
+}
+
+.hero-card-footer form button {
+    background-color: red;
+    border: none;
+    cursor: pointer;
+}
+
+.hero-card-footer form button:hover {
+    background-color: darkred;
+    transform: scale(1.1);
+    color: white;
+}

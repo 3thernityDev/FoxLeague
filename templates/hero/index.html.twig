@@ -1,36 +1,41 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Liste des Héros{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}Nos heros{% endblock %}{% block
+stylesheets %}
+<!-- Add your custom stylesheets here -->
+<link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
+{% endblock %} {% block body %}
 <div class="container">
     <h2>Nos Héros</h2>
 
-    <div class="card-container">
+    <div class="hero-card-container">
         {% for hero in heros %}
-            <div class="card">
-                <div class="card-header">
-                    {{ hero.name }}
-                </div>
-                <div class="card-body">
-                    <img src="{{ hero.image }}" alt="{{ hero.name }}" style="max-width: 100%; border-radius: 10px;">
-                    <h3>Identité Secrète : {{ hero.secretIdendity ? hero.secretIdendity : 'Inconnue' }}</h3>
-                    <p>Âge : {{ hero.age ? hero.age : 'Non précisé' }}</p>
-                    <p>Missions remarquables : {{ hero.notableMission ? hero.notableMission : 'Non spécifiées' }}</p>
-                    <p>Taux de Succès : {{ hero.succesRate }}%</p>
-                    <p>Taux d'Échec : {{ hero.failRate }}%</p>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ path('hero_show', { id: hero.id }) }}" class="navbar-link">Voir</a>
-                    <a href="{{ path('hero_edit', { id: hero.id }) }}" class="navbar-link">Modifier</a>
-                    <form action="{{ path('hero_delete', { id: hero.id }) }}" method="post" style="display: inline;">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ hero.id) }}">
-                        <button type="submit" style="border: none; background: none; color: red; cursor: pointer; font-size: 1rem;">Supprimer</button>
-                    </form>
-                </div>
+        <div class="hero-card">
+            <img src="{{ hero.image }}" alt="{{ hero.name }}" />
+            <h3>{{ hero.name }}</h3>
+            <p>
+                Identité Secrète :
+                {{ hero.secretIdendity ? hero.secretIdendity : "Inconnue" }}
+            </p>
+            <p>Âge : {{ hero.age ? hero.age : "Non précisé" }}</p>
+            <p>Taux de Succès : {{ hero.succesRate }}%</p>
+            <p>Taux d'Échec : {{ hero.failRate }}%</p>
+            <div class="hero-card-footer">
+                {# <a href="{{ path('hero_show', { id: hero.id }) }}">Voir</a>
+                <a href="{{ path('hero_edit', { id: hero.id }) }}">Modifier</a>
+                <form
+                    action="{{ path('hero_delete', { id: hero.id }) }}"
+                    method="post"
+                > #}
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value="{{ csrf_token('delete' ~ hero.id) }}"
+                    />
+                    <button type="submit">Supprimer</button>
+                </form>
             </div>
+        </div>
         {% else %}
-            <p>Aucun héros trouvé.</p>
+        <p>Aucun héros trouvé.</p>
         {% endfor %}
     </div>
 </div>

@@ -1,0 +1,110 @@
+/* Conteneur général */
+.form-container {
+    background-color: #fff; /* Fond blanc pour contraste */
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/* Titre */
+.form-container h2 {
+    text-align: center;
+    color: #f5a623; /* Orange renard */
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Groupes de champs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Étiquettes */
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Champs de formulaire */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Focus sur les champs */
+.form-control:focus {
+    border-color: #f5a623; /* Orange renard */
+    box-shadow: 0 0 5px rgba(245, 166, 35, 0.5);
+    outline: none;
+}
+
+/* Zone de texte */
+textarea.form-control {
+    resize: none; /* Empêche le redimensionnement */
+}
+
+/* Boutons */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary {
+    background-color: #f5a623; /* Orange renard */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #ffb84d; /* Doré clair */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Messages d'erreur ou d'information */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: none; /* Exemple : cache par défaut */
+}
+
+.success-message {
+    color: green;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: none; /* Exemple : cache par défaut */
+}

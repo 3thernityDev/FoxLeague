@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %} {% block title %}Créer un Nouveau Héros{%
+endblock %}{% block stylesheets %}
+<!-- Add your custom stylesheets here -->
+<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
+{% endblock %} {% block body %}
+
+<div class="container">
+    <h2>Créer un Nouveau Héros</h2>
+
+    <form method="post" action="{{ path('hero_new') }}" class="form-container">
+        <div class="form-group">
+            <label for="name">Nom :</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Nom du héros"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="image">URL de l'Image :</label>
+            <input
+                type="url"
+                id="image"
+                name="image"
+                class="form-control"
+                placeholder="Lien vers l'image du héros"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="secretIdendity">Identité Secrète :</label>
+            <input
+                type="text"
+                id="secretIdendity"
+                name="secretIdendity"
+                class="form-control"
+                placeholder="Identité secrète"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="age">Âge :</label>
+            <input
+                type="number"
+                id="age"
+                name="age"
+                class="form-control"
+                placeholder="Âge du héros"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="notableMission">Mission Remarquable :</label>
+            <textarea
+                id="notableMission"
+                name="notableMission"
+                class="form-control"
+                rows="3"
+                placeholder="Description des missions notables"
+            ></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="succesRate">Taux de Succès (%):</label>
+            <input
+                type="number"
+                id="succesRate"
+                name="succesRate"
+                class="form-control"
+                min="0"
+                max="100"
+                placeholder="Taux de succès du héros"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="failRate">Taux d'Échec (%):</label>
+            <input
+                type="number"
+                id="failRate"
+                name="failRate"
+                class="form-control"
+                min="0"
+                max="100"
+                placeholder="Taux d'échec du héros"
+                required
+            />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Créer</button>
+            <a href="{{ path('hero_list') }}" class="btn btn-secondary"
+                >Annuler</a
+            >
+        </div>
+    </form>
+</div>
+{% endblock %}
