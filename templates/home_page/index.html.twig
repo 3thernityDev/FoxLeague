@@ -1,144 +1,116 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link
-            rel="icon"
-            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"
-        />
-        {% block stylesheets %} {% endblock %} {% block javascripts %} {% block
-        importmap %}{{
-            importmap("app")
-        }}{% endblock %} {% endblock %}
-    </head>
-    <header>
-        <nav class="navbar">
-            <h3 class="navbar-logo">FoxLeague</h3>
-            <ul class="navbar-menu">
-                <li><a href="#" class="navbar-link">Accueil</a></li>
-                <li><a href="#" class="navbar-link">Héros</a></li>
-                <li><a href="#" class="navbar-link">Missions</a></li>
-                <li><a href="#" class="navbar-link">Pouvoirs</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <body>
-        {% block body %}
-        <div class="container">
-            <!-- Section : 5 dernières missions -->
-            <section>
-                <h2>🗺️ 5 Dernières Missions</h2>
-                <div class="card-container">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Sauver la forêt 🌲</h3>
-                            <p>Description de la mission...</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Protéger la ville 🏙️</h3>
-                            <p>Description de la mission...</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Attraper les méchants 👮</h3>
-                            <p>Description de la mission...</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Éteindre les feux 🔥</h3>
-                            <p>Description de la mission...</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Reconstruire les écoles 🏫</h3>
-                            <p>Description de la mission...</p>
-                        </div>
-                    </div>
+{% extends 'base.html.twig' %} {% block title %}FoxLeague - Welcome!{% endblock
+%} {% block stylesheets %}
+<!-- Add your custom stylesheets here -->
+<link rel="stylesheet" href="/assets/styles/homePageController.css" />
+{% endblock %} {% block body %}
+<div class="container">
+    <!-- Section : 5 dernières missions -->
+    <section>
+        <h2>🗺️ 5 Dernières Missions</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Sauver la forêt 🌲</h3>
+                    <p>Description de la mission...</p>
                 </div>
-            </section>
-
-            <!-- Section : Liste des raretés de pouvoir -->
-            <section>
-                <h2>🌟 Rareté des Pouvoirs</h2>
-                <div class="card-container">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Légendaire ⚡</h3>
-                            <p>Les pouvoirs les plus puissants !</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Épique ✨</h3>
-                            <p>Un pouvoir impressionnant.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Rare 🌟</h3>
-                            <p>Des pouvoirs exceptionnels.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Commun 💎</h3>
-                            <p>Des pouvoirs assez courants.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Faible ⚙️</h3>
-                            <p>Les pouvoirs les moins puissants.</p>
-                        </div>
-                    </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Protéger la ville 🏙️</h3>
+                    <p>Description de la mission...</p>
                 </div>
-            </section>
-
-            <section>
-                <h2>🏆 Top 3 des Meilleurs Héros</h2>
-                <div class="card-container">
-                    <!-- Carte 1 (Top 1 - Or) -->
-                    <div class="card top-1">
-                        <div class="card-header">Héro: Foxy</div>
-                        <div class="card-body">
-                            <h3>Mission la plus célèbre: Sauver la forêt</h3>
-                            <p>Rareté des pouvoirs: Légendaire</p>
-                        </div>
-                        <div class="card-footer">Top 1 🏅</div>
-                    </div>
-
-                    <!-- Carte 2 (Top 2 - Argent) -->
-                    <div class="card top-2">
-                        <div class="card-header">Héro: Shadow</div>
-                        <div class="card-body">
-                            <h3>
-                                Mission la plus célèbre: Attraper les méchants
-                            </h3>
-                            <p>Rareté des pouvoirs: Épique</p>
-                        </div>
-                        <div class="card-footer">Top 2 🥈</div>
-                    </div>
-
-                    <!-- Carte 3 (Top 3 - Bronze) -->
-                    <div class="card top-3">
-                        <div class="card-header">Héro: Flame</div>
-                        <div class="card-body">
-                            <h3>Mission la plus célèbre: Éteindre les feux</h3>
-                            <p>Rareté des pouvoirs: Rare</p>
-                        </div>
-                        <div class="card-footer">Top 3 🥉</div>
-                    </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Attraper les méchants 👮</h3>
+                    <p>Description de la mission...</p>
                 </div>
-            </section>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Éteindre les feux 🔥</h3>
+                    <p>Description de la mission...</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Reconstruire les écoles 🏫</h3>
+                    <p>Description de la mission...</p>
+                </div>
+            </div>
         </div>
-        {% endblock %}
-    </body>
-</html>
-{# windirstat #}
+    </section>
+
+    <!-- Section : Liste des raretés de pouvoir -->
+    <section>
+        <h2>🌟 Rareté des Pouvoirs</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Légendaire ⚡</h3>
+                    <p>Les pouvoirs les plus puissants !</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Épique ✨</h3>
+                    <p>Un pouvoir impressionnant.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Rare 🌟</h3>
+                    <p>Des pouvoirs exceptionnels.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Commun 💎</h3>
+                    <p>Des pouvoirs assez courants.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Faible ⚙️</h3>
+                    <p>Les pouvoirs les moins puissants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>🏆 Top 3 des Meilleurs Héros</h2>
+        <div class="card-container">
+            <!-- Carte 1 (Top 1 - Or) -->
+            <div class="card top-1">
+                <div class="card-header">Héro: Foxy</div>
+                <div class="card-body">
+                    <h3>Mission la plus célèbre: Sauver la forêt</h3>
+                    <p>Rareté des pouvoirs: Légendaire</p>
+                </div>
+                <div class="card-footer">Top 1 🏅</div>
+            </div>
+
+            <!-- Carte 2 (Top 2 - Argent) -->
+            <div class="card top-2">
+                <div class="card-header">Héro: Shadow</div>
+                <div class="card-body">
+                    <h3>Mission la plus célèbre: Attraper les méchants</h3>
+                    <p>Rareté des pouvoirs: Épique</p>
+                </div>
+                <div class="card-footer">Top 2 🥈</div>
+            </div>
+
+            <!-- Carte 3 (Top 3 - Bronze) -->
+            <div class="card top-3">
+                <div class="card-header">Héro: Flame</div>
+                <div class="card-body">
+                    <h3>Mission la plus célèbre: Éteindre les feux</h3>
+                    <p>Rareté des pouvoirs: Rare</p>
+                </div>
+                <div class="card-footer">Top 3 🥉</div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
