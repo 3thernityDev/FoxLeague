@@ -1,37 +1,34 @@
-{% extends 'base.html.twig' %} {% block title %}Liste des pouvoirs{% endblock
-%}{% block stylesheets %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des pouvoirs{% endblock %}
+
+{% block stylesheets %}
 <!-- Add your custom stylesheets here -->
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
-{% endblock %} {% block body %}
+{% endblock %}
+
+{% block body %}
 <div class="container">
     <h2>
-        Les pouvoir !
-        <a href="{{ path('power_new') }}"
-            ><i class="fa-solid fa-circle-plus"></i
-        ></a>
+        Les pouvoirs !
+        <a href="{{ path('power_new') }}">
+            <i class="fa-solid fa-circle-plus"></i>
+        </a>
     </h2>
 
     <div class="power-card-container">
         {% for power in powers %}
         <div class="power-card">
             <h3>{{ power.name }}</h3>
-            <p>Rareter : {{ power.rarity ? power.rarity : "Non précisé" }}</p>
+            <p>Rareté : {{ power.rarity ? power.rarity : "Non précisé" }}</p>
 
-            <div class="team-card-footer">
-                <a href="{{ path('power_edit', { id: power.id }) }}"
-                    ><i class="fa-solid fa-pen"></i></a
-                >
-                <form
-                    action="{{ path('power_delete', { id: power.id }) }}"
-                    method="post"
-                    onsubmit="return confirmSuppression(event)"
-                >
-                    <input
-                        type="hidden"
-                        name="_token"
-                        value="{{ csrf_token('delete' ~ power.id) }}"
-                    />
-                    <button type="submit btn-danger">
+            <div class="power-card-footer">
+                <a href="{{ path('power_edit', { id: power.id }) }}">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+                <form action="{{ path('power_delete', { id: power.id }) }}" method="post" onsubmit="return confirmSuppression(event)">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ power.id) }}" />
+                    <button type="submit" class="btn-danger">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </form>
@@ -42,18 +39,15 @@
         {% endfor %}
     </div>
 </div>
-<script>
-    // Fonction pour verification avant suppression
-    function confirmSuppression(event) {
-        // Affiche une boîte de dialogue de confirmation
-        const confirmation = confirm(
-            "Êtes-vous sûr de vouloir supprimer ce pouvoir ?"
-        );
 
-        // Si l'utilisateur clique sur "Annuler", on empêche l'envoi du formulaire
+<script>
+    // Fonction pour vérification avant suppression
+    function confirmSuppression(event) {
+        const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce pouvoir ?");
         if (!confirmation) {
             event.preventDefault();
         }
     }
 </script>
+
 {% endblock %}
