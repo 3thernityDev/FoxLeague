@@ -71,7 +71,7 @@ class HeroController extends AbstractController
                 ->setAge((int) $data->get('age'))
                 ->setNotableMission($data->get('notableMission'))
                 ->setSuccesRate((int) $data->get('succesRate'))
-            ->setFailRate((int) $data->get('failRate'))
+                ->setFailRate((int) $data->get('failRate'))
                 ->setPowerLink($power);
 
             $this->em->persist($hero);
@@ -95,21 +95,41 @@ class HeroController extends AbstractController
         if ($request->isMethod('POST')) {
             $data = $request->request;
 
-            $hero->setName($data->get('name'))
-                ->setImage($data->get('image')) // Sous forme de lien temporairement || Rajout d'upload prévue 
-                ->setSecretIdendity($data->get('secretIdendity'))
-                ->setAge((int) $data->get('age'))
-                ->setNotableMission($data->get('notableMission'))
-                ->setSuccesRate((int) $data->get('succesRate'))
-                ->setFailRate((int) $data->get('failRate'));
+            // Récupération et vérification du pouvoir sélectionné
+            $powerId = $data->get('power');
+            $power = $this->powerRepository->find($powerId);
 
-            $this->em->flush();
+            if (!$power) {
+                $this->addFlash('error', 'Le pouvoir sélectionné est invalide.');
+                return $this->redirectToRoute('edit', ['id' => $hero->getId()]);
+            }
 
-            return $this->redirectToRoute('hero_list');
+            try {
+                $hero->setName($data->get('name'))
+                    ->setImage($data->get('image')) // Lien temporaire (upload prévu)
+                    ->setSecretIdendity($data->get('secretIdendity'))
+                    ->setAge((int) $data->get('age'))
+                    ->setNotableMission($data->get('notableMission'))
+                    ->setSuccesRate((int) $data->get('succesRate'))
+                    ->setFailRate((int) $data->get('failRate'))
+                    ->setPowerLink($power);
+
+                $this->em->flush();
+
+                $this->addFlash('success', 'Héro modifié avec succès.');
+
+                return $this->redirectToRoute('hero_list');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification du héros.');
+            }
         }
 
-        return $this->render('hero/edit.html.twig', ['hero' => $hero]);
+        return $this->render('hero/edit.html.twig', [
+            'hero' => $hero,
+            'powers' => $this->powerRepository->findAll(),
+        ]);
     }
+
     // Route pour supprimer un héro
     #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Hero $hero): Response

@@ -1,8 +1,12 @@
-{% extends 'base.html.twig' %} {% block title %}Modifier le Héros :
-{{ hero.name }}{% endblock %} {% block stylesheets %}
-<!-- Add your custom stylesheets here -->
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Héros : {{ hero.name }}{% endblock %}
+
+{% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
-{% endblock %} {% block body %}
+{% endblock %}
+
+{% block body %}
 <div class="container">
     <h2>Modifier le Héros : {{ hero.name }}</h2>
 
@@ -64,8 +68,7 @@
                 name="notableMission"
                 class="form-control"
                 rows="3"
-                >{{ hero.notableMission }}</textarea
-            >
+            >{{ hero.notableMission }}</textarea>
         </div>
 
         <div class="form-group">
@@ -96,11 +99,24 @@
             />
         </div>
 
+        <!-- Sélecteur pour les pouvoirs -->
+        <div class="form-group">
+            <label for="power">Pouvoir :</label>
+            <select id="power" name="power" class="form-control">
+                {% for power in powers %}
+                    <option 
+                        value="{{ power.id }}"
+                        {% if hero.powerLink and hero.powerLink.id == power.id %}selected{% endif %}
+                    >
+                        {{ power.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Sauvegarder</button>
-            <a href="{{ path('hero_list') }}" class="btn btn-secondary"
-                >Annuler</a
-            >
+            <a href="{{ path('hero_list') }}" class="btn btn-secondary">Annuler</a>
         </div>
     </form>
 </div>
