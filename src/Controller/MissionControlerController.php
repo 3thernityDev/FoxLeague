@@ -1,11 +1,9 @@
 <?php
 
-// src/Controller/MissionControlerController.php
-
 namespace App\Controller;
 
 use App\Entity\Mission;
-use App\Entity\Hero;
+use App\Repository\MissionRepository;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +23,18 @@ class MissionControlerController extends AbstractController
         $this->em = $em;
     }
 
+    // Liste des missions
+    #[Route('/', name: 'list', methods: ['GET'])]
+    public function list(MissionRepository $missionRepository): Response
+    {
+        $missions = $missionRepository->findAll();
+
+        return $this->render('mission/index.html.twig', [
+            'missions' => $missions,
+        ]);
+    }
+
+    // Créer une mission
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {

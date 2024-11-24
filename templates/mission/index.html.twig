@@ -1,20 +1,73 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello MissionControlerController!{% endblock %}
-
+{% extends 'base.html.twig' %} 
+{% block title %}Liste des Missions{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
+{% endblock %} 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container">
+    <h2>
+        Liste des Missions
+        <a title="Créer une nouvelle mission" href="{{ path('mission_new') }}">
+            <i class="fa-solid fa-circle-plus"></i>
+        </a>
+    </h2>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Hoarau/OneDrive/Desktop/workspace/Symfony/FoxLeague/src/Controller/MissionControlerController.php</code></li>
-        <li>Your template at <code>C:/Users/Hoarau/OneDrive/Desktop/workspace/Symfony/FoxLeague/templates/mission_controler/index.html.twig</code></li>
-    </ul>
+    {% if missions is empty %}
+    <p>Aucune mission trouvée.</p>
+    {% else %}
+    <div class="team-card-container">
+        {% for mission in missions %}
+        <div class="team-card">
+            <h3>{{ mission.name }}</h3>
+            <p><strong>Description :</strong> {{ mission.description }}</p>
+            <p><strong>Durée :</strong> {{ mission.durer }} jours</p>
+            <p><strong>Status :</strong> {{ mission.status }}</p>
+            <p>
+                <strong>Date de Création :</strong> 
+                {{ mission.createDate|date('d/m/Y H:i') }}
+            </p>
+            <p>
+                <strong>Équipe :</strong> 
+                {{ mission.team ? mission.team.name : 'Non assignée' }}
+            </p>
+            {# <div class="mission-card-footer">
+                <a href="{{ path('mission_show', { id: mission.id }) }}">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+                <a href="{{ path('mission_edit', { id: mission.id }) }}">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+                <form
+                    action="{{ path('mission_delete', { id: mission.id }) }}"
+                    method="post"
+                    onsubmit="return confirmSuppression(event)"
+                >
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value="{{ csrf_token('delete' ~ mission.id) }}"
+                    />
+                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                </form> #}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
+
+<script>
+    // Fonction pour verification avant suppression
+    function confirmSuppression(event) {
+        // Affiche une boîte de dialogue de confirmation
+        const confirmation = confirm(
+            "Êtes-vous sûr de vouloir supprimer cette mission ?"
+        );
+
+        // Si l'utilisateur clique sur "Annuler", on empêche l'envoi du formulaire
+        if (!confirmation) {
+            event.preventDefault();
+        }
+    }
+</script>
 {% endblock %}
