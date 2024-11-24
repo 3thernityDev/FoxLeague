@@ -23,30 +23,38 @@
 .hero-bubble {
     text-align: center;
     background-color: #fff;
-    padding: 15px;
-    border-radius: 50%;
+    border-radius: 10px; /* Rendu arrondi pour toute la bulle */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 120px;
-    height: 120px;
+    height: 160px; /* Augmentation pour inclure le nom */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: column; /* Organiser le nom et l'image verticalement */
+    justify-content: flex-start; /* Alignement vers le haut */
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 10px 0; /* Ajout de marge interne pour équilibrer */
 }
 
+/* Effet au survol */
 .hero-bubble:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* Nom du héros au-dessus de l'image */
+.hero-bubble p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px; /* Espacement entre le nom et l'image */
+    font-weight: bold;
+}
+
 /* Image du héros dans la bulle */
 .hero-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 10px;
+    width: 80px; /* Taille fixe pour l'image */
+    height: 80px; /* Taille fixe pour l'image */
+    object-fit: cover; /* Maintient les proportions sans déformation */
+    border-radius: 50%; /* Rend l'image circulaire */
 }
 
 /* Placeholder pour les héros sans image */
@@ -61,13 +69,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
-}
-
-/* Nom du héros sous l'image */
-.hero-bubble p {
-    font-size: 1rem;
-    color: #555;
+    margin-bottom: 10px; /* Pour correspondre à l'espace entre le nom et l'image */
 }
 
 /* Bouton Retour */
@@ -88,4 +90,32 @@
 .team-actions .btn:hover {
     background-color: #ffb84d;
     transform: scale(1.05);
+}
+
+/* Style général du bouton */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5a623;
+    color: white; 
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%; 
+    border: none; 
+    font-size: 1.2rem; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease; 
+    text-decoration: none; 
+}
+
+/* Effet au survol */
+.btn-primary:hover {
+    background-color: #ffb84d;
+    transform: scale(1.1); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+}
+
+.btn-primary:active {
+    transform: scale(0.95); 
 }
