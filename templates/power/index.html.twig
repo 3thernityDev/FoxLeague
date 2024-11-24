@@ -1,41 +1,44 @@
-{% extends 'base.html.twig' %} {% block title %}Liste des pouvoirs{% endblock %}{% block
-    stylesheets %}
-    <!-- Add your custom stylesheets here -->
-    <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
-    {% endblock %} {% block body %}
-    <div class="container">
-        <h2>
-            Les pouvoir !
-            <a href="{{ path('power_new') }}"
-                ><i class="fa-solid fa-circle-plus"></i
-            ></a>
-        </h2>
-    
-        <div class="power-card-container">
-            {% for power in powers %}
-            <div class="power-card">
-                <h3>{{ power.name }}</h3>
-                <p>Rareter : {{ power.rarity ? power.rarity : "Non précisé" }}</p>
-                {# <div class="power-card-footer">
-                    <a href="{{ path('power_show', { id: power.id }) }}">Voir</a>
-                    <a href="{{ path('power_edit', { id: power.id }) }}">Modifier</a>
-                    <form
-                        action="{{ path('power_delete', { id: power.id }) }}"
-                        method="post"
-                    >
-                        <input
-                            type="hidden"
-                            name="_token"
-                            value="{{ csrf_token('delete' ~ power.id) }}"
-                        />
-                        <button type="submit">Supprimer</button>
-                    </form>
-                </div> #}
+{% extends 'base.html.twig' %} {% block title %}Liste des pouvoirs{% endblock
+%}{% block stylesheets %}
+<!-- Add your custom stylesheets here -->
+<link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
+{% endblock %} {% block body %}
+<div class="container">
+    <h2>
+        Les pouvoir !
+        <a href="{{ path('power_new') }}"
+            ><i class="fa-solid fa-circle-plus"></i
+        ></a>
+    </h2>
+
+    <div class="power-card-container">
+        {% for power in powers %}
+        <div class="power-card">
+            <h3>{{ power.name }}</h3>
+            <p>Rareter : {{ power.rarity ? power.rarity : "Non précisé" }}</p>
+            {#
+            <div class="power-card-footer">
+                <a href="{{ path('power_show', { id: power.id }) }}">Voir</a>
+                <a href="{{ path('power_edit', { id: power.id }) }}"
+                    >Modifier</a
+                >
+                <form
+                    action="{{ path('power_delete', { id: power.id }) }}"
+                    method="post"
+                >
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value="{{ csrf_token('delete' ~ power.id) }}"
+                    />
+                    <button type="submit">Supprimer</button>
+                </form>
             </div>
-            {% else %}
-            <p>Aucun pouvoir trouvé.</p>
-            {% endfor %}
+            #}
         </div>
+        {% else %}
+        <p>Aucun pouvoir trouvé.</p>
+        {% endfor %}
     </div>
-    {% endblock %}
-    
+</div>
+{% endblock %}

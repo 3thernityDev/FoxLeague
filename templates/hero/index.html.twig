@@ -17,16 +17,25 @@ stylesheets %}
             <img src="{{ hero.image }}" alt="{{ hero.name }}" />
             <h3>{{ hero.name }}</h3>
             <p>
-                Identité Secrète :
+                <strong> Identité Secrète : </strong>
                 {{ hero.secretIdendity ? hero.secretIdendity : "Inconnue" }}
             </p>
-            <p>Âge : {{ hero.age ? hero.age : "Non précisé" }}</p>
             <p>
-                Pouvoir :
+                <strong> Âge : </strong>
+                {{ hero.age ? hero.age : "Non précisé" }}
+            </p>
+            <p>
+                <strong> Pouvoir : </strong>
                 {{ hero.powerLink ? hero.powerLink.name : "Non défini" }}
             </p>
-            <p>Taux de Succès : {{ hero.succesRate }}%</p>
-            <p>Taux d'Échec : {{ hero.failRate }}%</p>
+            <p>
+                <strong> Taux de Succès : </strong>
+                {{ hero.succesRate }}%
+            </p>
+            <p>
+                <strong> Taux d'Échec : </strong>
+                {{ hero.failRate }}%
+            </p>
             <div class="hero-card-footer">
                 <a href="{{ path('hero_show', { id: hero.id }) }}">Voir</a>
                 <a href="{{ path('hero_edit', { id: hero.id }) }}">Modifier</a>
