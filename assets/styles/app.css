@@ -20,6 +20,7 @@ body {
     z-index: 1000;
 }
 
+/* Logo de la navbar */
 .navbar-logo {
     font-size: 1.8rem;
     text-transform: uppercase;
@@ -29,6 +30,7 @@ body {
     cursor: pointer;
 }
 
+/* Menu de la navbar */
 .navbar-menu {
     list-style: none;
     display: flex;
@@ -37,6 +39,7 @@ body {
     padding: 0;
 }
 
+/* Liens de la navbar */
 .navbar-link {
     text-decoration: none;
     color: white;
@@ -55,10 +58,37 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Styles généraux pour le conteneur */
-.container {
-    width: 80%;
-    margin: 20px auto;
-    font-family: "Comic Sans MS", cursive, sans-serif;
+/* Icône hamburger (visible sur les petits écrans) */
+.navbar-hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: white;
 }
 
+/* Cacher le menu et afficher l'icône hamburger sur les petits écrans */
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none;  /* Cache le menu sur les petits écrans */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #f5a623;
+    }
+
+    .navbar-menu.show {
+        display: flex; /* Affiche le menu lorsque 'show' est ajouté */
+    }
+
+    .navbar-link {
+        margin: 10px 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .navbar-hamburger {
+        display: block;  /* Affiche l'icône hamburger sur les petits écrans */
+    }
+}

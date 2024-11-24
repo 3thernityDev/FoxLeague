@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -7,8 +7,8 @@
             rel="icon"
             href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"
         />
-        {% block stylesheets %} {% endblock %} {% block javascripts %} {% block
-        importmap %}{{
+        {% block stylesheets %} {% endblock %}
+        {% block javascripts %} {% block importmap %}{{
             importmap("app")
         }}{% endblock %} {% endblock %}
         <link
@@ -23,32 +23,20 @@
         <nav class="navbar">
             <h3 class="navbar-logo">FoxLeague</h3>
             <ul class="navbar-menu">
-                <li>
-                    <a href="{{ path('app_home_page') }}" class="navbar-link"
-                        >Accueil</a
-                    >
-                </li>
-                <!-- Route vers la liste des héros -->
-                <li>
-                    <a href="{{ path('hero_list') }}" class="navbar-link"
-                        >Héros</a
-                    >
-                </li>
-                <li>
-                    <a href="{{ path('team_list') }}" class="navbar-link"
-                        >Equipes</a
-                    >
-                </li>
+                <li><a href="{{ path('app_home_page') }}" class="navbar-link">Accueil</a></li>
+                <li><a href="{{ path('hero_list') }}" class="navbar-link">Héros</a></li>
+                <li><a href="{{ path('team_list') }}" class="navbar-link">Equipes</a></li>
                 <li><a href="#" class="navbar-link">Missions</a></li>
-                <li>
-                    <a href="{{ path('power_list') }}" class="navbar-link"
-                        >Pouvoirs</a
-                    >
-                </li>
+                <li><a href="{{ path('power_list') }}" class="navbar-link">Pouvoirs</a></li>
             </ul>
+            <!-- Menu Hamburger -->
+            <div class="navbar-hamburger" id="navbar-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
         </nav>
     </header>
     <body>
         {% block body %}{% endblock %}
     </body>
+    <script src="{{ asset('scripts/navbar.js') }}"></script>
 </html>
