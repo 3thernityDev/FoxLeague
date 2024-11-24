@@ -40,11 +40,55 @@
             {% endfor %}
         </div>
 
+        <!-- Actions de modification et suppression de l'équipe -->
         <div class="team-actions">
-            <a href="{{ path('team_list') }}" class="btn btn-secondary"
-                >Retour à la liste des équipes</a
+            <a
+                href="{{ path('team_list') }}"
+                class="btn btn-secondary"
+                title="Retour à la liste des équipes"
             >
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <a
+                href="{{ path('team_edit', { id: team.id }) }}"
+                class="btn btn-warning"
+                title="Modifier l'équipe"
+            >
+                <i class="fa-solid fa-pen"></i>
+            </a>
+            <form
+                action="{{ path('team_delete', { id: team.id }) }}"
+                method="post"
+                onsubmit="return confirmSuppression(event)"
+            >
+                <input
+                    type="hidden"
+                    name="_token"
+                    value="{{ csrf_token('delete' ~ team.id) }}"
+                />
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                    title="Supprimer l'équipe"
+                >
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+    // Fonction pour vérification avant suppression
+    function confirmSuppression(event) {
+        // Affiche une boîte de dialogue de confirmation
+        const confirmation = confirm(
+            "Êtes-vous sûr de vouloir supprimer cette équipe ?"
+        );
+        // Si l'utilisateur clique sur "Annuler", on empêche l'envoi du formulaire
+        if (!confirmation) {
+            event.preventDefault();
+        }
+    }
+</script>
 {% endblock %}

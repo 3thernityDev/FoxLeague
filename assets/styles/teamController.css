@@ -74,6 +74,10 @@
 
 /* Bouton Retour */
 .team-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     margin-top: 20px;
     text-align: center;
 }
@@ -98,24 +102,36 @@
     align-items: center;
     justify-content: center;
     background-color: #f5a623;
-    color: white; 
-    width: 40px; 
+    color: white;
+    width: 40px;
     height: 40px;
-    border-radius: 50%; 
-    border: none; 
-    font-size: 1.2rem; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    transition: all 0.3s ease; 
-    text-decoration: none; 
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 /* Effet au survol */
 .btn-primary:hover {
     background-color: #ffb84d;
-    transform: scale(1.1); 
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary:active {
-    transform: scale(0.95); 
+    transform: scale(0.95);
+}
+
+.btn.btn-danger {
+    background-color: red;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.btn-danger:hover {
+    background-color: darkred;
+    transform: scale(1.1);
+    color: white;
 }

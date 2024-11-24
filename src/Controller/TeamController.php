@@ -79,9 +79,9 @@ class TeamController extends AbstractController
             $data = $request->request;
 
             $team->setName($data->get('name'))
-            ->setSuccessRate((int) $data->get('succesRate'))
-            ->setFailRate((int) $data->get('FailRate'))
-            ->setPopularity($data->get('popularity'));
+                ->setSuccessRate((int) $data->get('succesRate'))
+                ->setFailRate((int) $data->get('FailRate'))
+                ->setPopularity($data->get('popularity'));
 
             $this->em->flush();
 
@@ -93,5 +93,16 @@ class TeamController extends AbstractController
         return $this->render('team/edit.html.twig', [
             'team' => $team,
         ]);
+    }
+
+    // Route pour supprimer une équipe
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(Team $team): Response
+    {
+        $this->em->remove($team);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Équipe supprimée avec succès !');
+        return $this->redirectToRoute('team_list');
     }
 }
