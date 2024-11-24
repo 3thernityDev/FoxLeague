@@ -33,6 +33,15 @@ class MissionControlerController extends AbstractController
             'missions' => $missions,
         ]);
     }
+    // Voir les détails d'une mission
+    #[Route('/{id}/show', name: 'show', methods: ['GET'])]
+    public function show(Mission $mission): Response
+    {
+        return $this->render('mission/show.html.twig', [
+            'mission' => $mission,
+        ]);
+    }
+
 
     // Créer une mission
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]

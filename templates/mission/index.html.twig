@@ -2,6 +2,7 @@
 {% block title %}Liste des Missions{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
+<link rel="stylesheet" href="{{ asset('styles/teamController.css') }}" />
 {% endblock %} 
 {% block body %}
 <div class="container">
@@ -30,11 +31,11 @@
                 <strong>Équipe :</strong> 
                 {{ mission.team ? mission.team.name : 'Non assignée' }}
             </p>
-            {# <div class="mission-card-footer">
+            <div class="mission-card-footer">
                 <a href="{{ path('mission_show', { id: mission.id }) }}">
                     <i class="fa-solid fa-eye"></i>
                 </a>
-                <a href="{{ path('mission_edit', { id: mission.id }) }}">
+                {# <a href="{{ path('mission_edit', { id: mission.id }) }}">
                     <i class="fa-solid fa-pen"></i>
                 </a>
                 <form

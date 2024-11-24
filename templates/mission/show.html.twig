@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la Mission - {{ mission.name }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Détails de la Mission</h2>
+    <div class="team-details">
+        <p><strong>Nom :</strong> {{ mission.name }}</p>
+        <p><strong>Description :</strong> {{ mission.description }}</p>
+        <p><strong>Durée :</strong> {{ mission.durer }} jours</p>
+        <p><strong>Status :</strong> {{ mission.status }}</p>
+        <p>
+            <strong>Date de Création :</strong> 
+            {{ mission.createDate|date('d/m/Y H:i') }}
+        </p>
+        <p>
+            <strong>Équipe Assignée :</strong>
+            {{ mission.team ? mission.team.name : 'Non assignée' }}
+        </p>
+    </div>
+
+    <div class="team-actions">
+        {# <a href="{{ path('mission_edit', { id: mission.id }) }}" class="btn btn-primary">Modifier</a> #}
+        <a href="{{ path('mission_list') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+</div>
+{% endblock %}
