@@ -1,37 +1,72 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Détails du Héros : {{ hero.name }}{% endblock %}
-
-{% block stylesheets %}
+{% extends 'base.html.twig' %} {% block title %}Détails du Héros :
+{{ hero.name }}{% endblock %} {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 <div class="container">
     <h2>Détails du Héros</h2>
 
     <div class="hero-card-container">
         <div class="hero-card">
-            <img src="{{ hero.image }}" alt="Image de {{ hero.name }}" class="hero-image" />
+            <img
+                src="{{ hero.image }}"
+                alt="Image de {{ hero.name }}"
+                class="hero-image"
+            />
             <h3>{{ hero.name }}</h3>
-            <p><strong>Identité Secrète :</strong> {{ hero.secretIdendity ?: 'Inconnue' }}</p>
-            <p><strong>Âge :</strong> {{ hero.age ?: 'Non précisé' }}</p>
-            <p><strong>Pouvoir :</strong> 
-                {{ hero.powerLink ? hero.powerLink.name : 'Non défini' }}
+            <p>
+                <strong>Identité Secrète :</strong>
+                {{ hero.secretIdendity ?: 'Inconnue' }}
             </p>
-            <p><strong>Missions remarquables :</strong> {{ hero.notableMission ?: 'Non spécifiées' }}</p>
+            <p><strong>Âge :</strong> {{ hero.age ?: 'Non précisé' }}</p>
+            <p>
+                <strong>Pouvoir :</strong>
+                {{ hero.powerLink ? hero.powerLink.name : "Non défini" }}
+            </p>
+            <p>
+                <strong>Missions remarquables :</strong>
+                {{ hero.notableMission ?: 'Non spécifiées' }}
+            </p>
             <p><strong>Taux de Succès :</strong> {{ hero.succesRate }}%</p>
             <p><strong>Taux d'Échec :</strong> {{ hero.failRate }}%</p>
 
             <div class="hero-card-footer">
-                <a href="{{ path('hero_list') }}" class="btn btn-secondary">Retour</a>
-                <a href="{{ path('hero_edit', { id: hero.id }) }}" class="btn btn-primary">Modifier</a>
-                <form action="{{ path('hero_delete', { id: hero.id }) }}" method="post" style="display: inline;">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ hero.id) }}">
-                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                <a href="{{ path('hero_list') }}" class="btn btn-secondary"
+                    >Retour</a
+                >
+                <a
+                    href="{{ path('hero_edit', { id: hero.id }) }}"
+                    class="btn btn-primary"
+                    >Modifier</a
+                >
+                <form
+                    action="{{ path('hero_delete', { id: hero.id }) }}"
+                    method="post"
+                    onsubmit="return confirmSuppression(event)"
+                >
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value="{{ csrf_token('delete' ~ hero.id) }}"
+                    />
+                    <button type="submit">Supprimer</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Fonction pour verification avant suppression
+    function confirmSuppression(event) {
+        // Affiche une boîte de dialogue de confirmation
+        const confirmation = confirm(
+            "Êtes-vous sûr de vouloir supprimer ce héros ?"
+        );
+
+        // Si l'utilisateur clique sur "Annuler", on empêche l'envoi du formulaire
+        if (!confirmation) {
+            event.preventDefault();
+        }
+    }
+</script>
 {% endblock %}
