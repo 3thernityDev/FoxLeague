@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modifier un Pouvoir
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Modifier un Pouvoir</h2>
+    
+        <form method="post" action="{{ path('power_edit', {'id': power.id}) }}" class="form-container">
+            <div class="form-group">
+                <label for="name">Nom :</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-control"
+                    value="{{ power.name }}"
+                    placeholder="Nom du pouvoir"
+                    required
+                />
+            </div>
+    
+            <div class="form-group">
+                <label for="rarity">Rareté du pouvoir :</label>
+                <select id="rarity" name="rarity" class="form-control" required>
+                    <option value="legendary" {% if power.rarity == 'legendary' %}selected{% endif %}>Légendaire</option>
+                    <option value="epic" {% if power.rarity == 'epic' %}selected{% endif %}>Epique</option>
+                    <option value="rare" {% if power.rarity == 'rare' %}selected{% endif %}>Rare</option>
+                    <option value="common" {% if power.rarity == 'common' %}selected{% endif %}>Commun</option>
+                </select>
+            </div>
+    
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Modifier</button>
+                <a href="{{ path('power_list') }}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
