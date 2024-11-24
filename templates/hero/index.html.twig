@@ -19,19 +19,19 @@ stylesheets %}
             <p>Taux de Succès : {{ hero.succesRate }}%</p>
             <p>Taux d'Échec : {{ hero.failRate }}%</p>
             <div class="hero-card-footer">
-                {# <a href="{{ path('hero_show', { id: hero.id }) }}">Voir</a>
+                {# <a href="{{ path('hero_show', { id: hero.id }) }}">Voir</a> #}
                 <a href="{{ path('hero_edit', { id: hero.id }) }}">Modifier</a>
-                <form
+                {# <form
                     action="{{ path('hero_delete', { id: hero.id }) }}"
                     method="post"
-                > #}
+                >
                     <input
                         type="hidden"
                         name="_token"
                         value="{{ csrf_token('delete' ~ hero.id) }}"
                     />
                     <button type="submit">Supprimer</button>
-                </form>
+                </form> #}
             </div>
         </div>
         {% else %}

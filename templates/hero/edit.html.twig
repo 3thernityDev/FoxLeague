@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %} {% block title %}Modifier le Héros :
+{{ hero.name }}{% endblock %} {% block stylesheets %}
+<!-- Add your custom stylesheets here -->
+<link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %} {% block body %}
+<div class="container">
+    <h2>Modifier le Héros : {{ hero.name }}</h2>
+
+    <form
+        method="post"
+        action="{{ path('hero_edit', { id: hero.id }) }}"
+        class="form-container"
+    >
+        <div class="form-group">
+            <label for="name">Nom :</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                value="{{ hero.name }}"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="image">URL de l'Image :</label>
+            <input
+                type="url"
+                id="image"
+                name="image"
+                class="form-control"
+                value="{{ hero.image }}"
+                placeholder="Lien vers l'image"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="secretIdendity">Identité Secrète :</label>
+            <input
+                type="text"
+                id="secretIdendity"
+                name="secretIdendity"
+                class="form-control"
+                value="{{ hero.secretIdendity }}"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="age">Âge :</label>
+            <input
+                type="number"
+                id="age"
+                name="age"
+                class="form-control"
+                value="{{ hero.age }}"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="notableMission">Mission Remarquable :</label>
+            <textarea
+                id="notableMission"
+                name="notableMission"
+                class="form-control"
+                rows="3"
+                >{{ hero.notableMission }}</textarea
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="succesRate">Taux de Succès (%):</label>
+            <input
+                type="number"
+                id="succesRate"
+                name="succesRate"
+                class="form-control"
+                min="0"
+                max="100"
+                value="{{ hero.succesRate }}"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="failRate">Taux d'Échec (%):</label>
+            <input
+                type="number"
+                id="failRate"
+                name="failRate"
+                class="form-control"
+                min="0"
+                max="100"
+                value="{{ hero.failRate }}"
+                required
+            />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+            <a href="{{ path('hero_list') }}" class="btn btn-secondary"
+                >Annuler</a
+            >
+        </div>
+    </form>
+</div>
+{% endblock %}

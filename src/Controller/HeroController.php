@@ -19,7 +19,7 @@ class HeroController extends AbstractController
     public function __construct(HeroRepository $heroRepository, EntityManagerInterface $em)
     {
         $this->heroRepository = $heroRepository;
-        $this->em = $em; // Correction ici : attribut correctement assigné
+        $this->em = $em;
     }
 
     // Route pour voir tous les héros
@@ -30,7 +30,7 @@ class HeroController extends AbstractController
 
         return $this->render('hero/index.html.twig', [
             'controller_name' => 'HeroController',
-            'heros' => $heros, // Correction orthographique : "heros" -> "heroes"
+            'heros' => $heros,
         ]);
     }
 
@@ -44,12 +44,12 @@ class HeroController extends AbstractController
             $data = $request->request;
 
             $hero->setName($data->get('name'))
-            ->setImage($data->get('image'))
-            ->setSecretIdendity($data->get('secretIdendity'))
-            ->setAge((int) $data->get('age'))
-            ->setNotableMission($data->get('notableMission'))
-            ->setSuccesRate((int) $data->get('succesRate'))
-            ->setFailRate((int) $data->get('failRate'));
+                ->setImage($data->get('image')) // Sous forme de lien temporairement || Rajout d'upload prévue 
+                ->setSecretIdendity($data->get('secretIdendity'))
+                ->setAge((int) $data->get('age'))
+                ->setNotableMission($data->get('notableMission'))
+                ->setSuccesRate((int) $data->get('succesRate'))
+                ->setFailRate((int) $data->get('failRate'));
 
             $this->em->persist($hero);
             $this->em->flush();
@@ -60,5 +60,27 @@ class HeroController extends AbstractController
         return $this->render('hero/new.html.twig', [
             'hero' => $hero,
         ]);
+    }
+    // Route pour modifier un héro
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Hero $hero): Response
+    {
+        if ($request->isMethod('POST')) {
+            $data = $request->request;
+
+            $hero->setName($data->get('name'))
+            ->setImage($data->get('image')) // Sous forme de lien temporairement || Rajout d'upload prévue 
+                ->setSecretIdendity($data->get('secretIdendity'))
+                ->setAge((int) $data->get('age'))
+                ->setNotableMission($data->get('notableMission'))
+                ->setSuccesRate((int) $data->get('succesRate'))
+                ->setFailRate((int) $data->get('failRate'));
+
+            $this->em->flush();
+
+            return $this->redirectToRoute('hero_list');
+        }
+
+        return $this->render('hero/edit.html.twig', ['hero' => $hero]);
     }
 }
