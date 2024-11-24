@@ -63,7 +63,7 @@ class PowerController extends AbstractController
             $data = $request->request;
 
             $power->setName($data->get('name'))
-            ->setRarity($data->get('rarity'));
+                ->setRarity($data->get('rarity'));
 
             $this->em->flush();
 
@@ -73,5 +73,17 @@ class PowerController extends AbstractController
         return $this->render('power/edit.html.twig', [
             'power' => $power,
         ]);
+    }
+
+    // Route pour supprimer un pouvoir
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(Power $power): Response
+    {
+        // Suppression du pouvoir de la base de données
+        $this->em->remove($power);
+        $this->em->flush();
+
+        // Redirection vers la liste des pouvoirs après suppression
+        return $this->redirectToRoute('power_list');
     }
 }
