@@ -21,7 +21,7 @@ stylesheets %}
             <div class="hero-card-footer">
                 {# <a href="{{ path('hero_show', { id: hero.id }) }}">Voir</a> #}
                 <a href="{{ path('hero_edit', { id: hero.id }) }}">Modifier</a>
-                {# <form
+                <form
                     action="{{ path('hero_delete', { id: hero.id }) }}"
                     method="post"
                 >
@@ -31,7 +31,7 @@ stylesheets %}
                         value="{{ csrf_token('delete' ~ hero.id) }}"
                     />
                     <button type="submit">Supprimer</button>
-                </form> #}
+                </form>
             </div>
         </div>
         {% else %}

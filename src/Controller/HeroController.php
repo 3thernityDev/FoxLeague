@@ -69,7 +69,7 @@ class HeroController extends AbstractController
             $data = $request->request;
 
             $hero->setName($data->get('name'))
-            ->setImage($data->get('image')) // Sous forme de lien temporairement || Rajout d'upload prévue 
+                ->setImage($data->get('image')) // Sous forme de lien temporairement || Rajout d'upload prévue 
                 ->setSecretIdendity($data->get('secretIdendity'))
                 ->setAge((int) $data->get('age'))
                 ->setNotableMission($data->get('notableMission'))
@@ -82,5 +82,24 @@ class HeroController extends AbstractController
         }
 
         return $this->render('hero/edit.html.twig', ['hero' => $hero]);
+    }
+    // Route pour supprimer un héro
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Hero $hero): Response
+    {
+        // Vérification du token CSRF pour une suppression sécurisée (Sera utile lors de l'ajout du système d'authentification)
+        if (!$this->isCsrfTokenValid('delete' . $hero->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'Token CSRF invalide. Suppression impossible.');
+            return $this->redirectToRoute('hero_list');
+        }
+
+        // Suppression de l'entité
+        $this->em->remove($hero);
+        $this->em->flush();
+
+        // Message flash pour confirmer la suppression
+        $this->addFlash('success', 'Héros supprimé avec succès.');
+
+        return $this->redirectToRoute('hero_list');
     }
 }
