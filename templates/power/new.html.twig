@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %} {% block title %}Créer un Nouveau Pouvoir{%
+endblock %} {% block stylesheets %}
+<!-- Add your custom stylesheets here -->
+<link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %} {% block body %}
+<div class="container">
+    <h2>Créer un Nouveau Pouvoir</h2>
+
+    <form method="post" action="{{ path('power_new') }}" class="form-container">
+        <div class="form-group">
+            <label for="name">Nom :</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Nom du pouvoir"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="rarity">Rareté du pouvoir :</label>
+            <select id="rarity" name="rarity" class="form-control" required>
+                <option value="legendary">Légendaire</option>
+                <option value="epic">Epique</option>
+                <option value="rare">Rare</option>
+                <option value="common">Commun</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Créer</button>
+            {# <a href="{{ path('power_list') }}" class="btn btn-secondary"
+                >Annuler</a
+            > #}
+        </div>
+    </form>
+</div>
+{% endblock %}

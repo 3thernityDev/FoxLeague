@@ -34,6 +34,10 @@ class Hero
     #[ORM\Column]
     private ?int $failRate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'heroLink')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Power $powerLink = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +123,18 @@ class Hero
     public function setFailRate(int $failRate): static
     {
         $this->failRate = $failRate;
+
+        return $this;
+    }
+
+    public function getPowerLink(): ?Power
+    {
+        return $this->powerLink;
+    }
+
+    public function setPowerLink(?Power $powerLink): static
+    {
+        $this->powerLink = $powerLink;
 
         return $this;
     }
