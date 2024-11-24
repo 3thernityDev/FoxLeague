@@ -4,7 +4,12 @@ stylesheets %}
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
 {% endblock %} {% block body %}
 <div class="container">
-    <h2>Nos Héros</h2>
+    <h2>
+        Nos Héros
+        <a href="{{ path('hero_new') }}"
+            ><i class="fa-solid fa-circle-plus"></i
+        ></a>
+    </h2>
 
     <div class="hero-card-container">
         {% for hero in heros %}
