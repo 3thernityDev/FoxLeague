@@ -47,7 +47,7 @@ class PowerController extends AbstractController
             $this->em->persist($power);
             $this->em->flush();
 
-            // return $this->redirectToRoute('power_list');
+            return $this->redirectToRoute('power_list');
         }
         return $this->render('power/new.html.twig', [
             'power' => $power,
