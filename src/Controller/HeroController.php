@@ -48,7 +48,6 @@ class HeroController extends AbstractController
 
 
     // Route pour créer un héros
-    // Route pour créer un héros
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {

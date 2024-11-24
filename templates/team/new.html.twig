@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %} {% block title %}Créer une Nouvelle Équipe{%
+endblock %} {% block stylesheets %}
+<!-- Add your custom stylesheets here -->
+<link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %} {% block body %}
+<div class="container">
+    <h2>Créer une Nouvelle Équipe</h2>
+
+    <form method="post" action="{{ path('team_new') }}" class="form-container">
+        <div class="form-group">
+            <label for="name">Nom de l'équipe :</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Nom de l'équipe"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="successRate">Taux de réussite :</label>
+            <input
+                type="number"
+                id="successRate"
+                name="successRate"
+                class="form-control"
+                min="0"
+                max="100"
+                placeholder="Taux de réussite"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="failRate">Taux d'échec :</label>
+            <input
+                type="number"
+                id="failRate"
+                name="failRate"
+                class="form-control"
+                min="0"
+                max="100"
+                placeholder="Taux d'échec"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="popularity">Popularité :</label>
+            <input
+                type="text"
+                id="popularity"
+                name="popularity"
+                class="form-control"
+                placeholder="Popularité"
+                required
+            />
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Créer l'Équipe
+            </button>
+
+            {#
+            <a href="{{ path('team_list') }}" class="btn btn-secondary"
+                >Annuler</a
+            >
+            #}
+        </div>
+    </form>
+</div>
+{% endblock %}
