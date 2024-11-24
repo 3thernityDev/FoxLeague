@@ -33,6 +33,9 @@ class Team
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $popularity = null;
 
+    #[ORM\OneToOne(mappedBy: 'team', cascade: ['persist', 'remove'])]
+    private ?Mission $mission = null;
+
     public function __construct()
     {
         $this->hero = new ArrayCollection();
@@ -117,6 +120,28 @@ class Team
     public function setPopularity(?string $popularity): static
     {
         $this->popularity = $popularity;
+
+        return $this;
+    }
+
+    public function getMission(): ?Mission
+    {
+        return $this->mission;
+    }
+
+    public function setMission(?Mission $mission): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($mission === null && $this->mission !== null) {
+            $this->mission->setTeam(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($mission !== null && $mission->getTeam() !== $this) {
+            $mission->setTeam($this);
+        }
+
+        $this->mission = $mission;
 
         return $this;
     }
