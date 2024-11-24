@@ -31,12 +31,12 @@
 
             <div class="hero-card-footer">
                 <a href="{{ path('hero_list') }}" class="btn btn-secondary"
-                    >Retour</a
+                    ><i class="fa-solid fa-arrow-left"></i></a
                 >
                 <a
                     href="{{ path('hero_edit', { id: hero.id }) }}"
                     class="btn btn-primary"
-                    >Modifier</a
+                    ><i class="fa-solid fa-pen"></i></a
                 >
                 <form
                     action="{{ path('hero_delete', { id: hero.id }) }}"
@@ -48,7 +48,7 @@
                         name="_token"
                         value="{{ csrf_token('delete' ~ hero.id) }}"
                     />
-                    <button type="submit">Supprimer</button>
+                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
                 </form>
             </div>
         </div>

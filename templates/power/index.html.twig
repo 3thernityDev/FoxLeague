@@ -16,10 +16,10 @@
         <div class="power-card">
             <h3>{{ power.name }}</h3>
             <p>Rareter : {{ power.rarity ? power.rarity : "Non précisé" }}</p>
-            
+
             <div class="power-card-footer">
                 <a href="{{ path('power_edit', { id: power.id }) }}"
-                    >Modifier</a
+                    ><i class="fa-solid fa-pen"></i></a
                 >
                 <form
                     action="{{ path('power_delete', { id: power.id }) }}"
@@ -31,10 +31,11 @@
                         name="_token"
                         value="{{ csrf_token('delete' ~ power.id) }}"
                     />
-                    <button type="submit">Supprimer</button>
+                    <button type="submit">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </form>
             </div>
-           
         </div>
         {% else %}
         <p>Aucun pouvoir trouvé.</p>
