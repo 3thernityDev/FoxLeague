@@ -92,8 +92,6 @@
     color: white;
 }
 
-/* card.css */
-
 /* Style général pour le conteneur de cartes */
 .power-card-container {
     display: grid;
@@ -102,43 +100,84 @@
     margin-top: 20px;
 }
 
-/* Style pour chaque carte */
+/* Style pour chaque carte de pouvoir */
 .power-card {
     background: linear-gradient(
         145deg,
         #fff6e5,
         #f7e5cb
     ); /* Couleur sable avec dégradé */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .power-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Style pour les titres */
 .power-card h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 1.5rem;
+    color: #f5a623; /* Orange renard */
+    margin: 15px 0;
+    text-transform: uppercase;
 }
 
 /* Style pour le texte de la rareté */
 .power-card p {
-    font-size: 1em;
-    color: #555;
+    font-size: 1rem;
+    color: #555; /* Gris foncé */
+    margin: 10px 15px;
+    line-height: 1.5;
 }
 
-/* Style pour les boutons en bas de la carte */
+/* Footer avec les boutons */
 .power-card-footer {
+    background-color: #fff;
+    border-top: 2px solid #f5a623; /* Bordure orange renard */
+    padding: 10px;
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    justify-content: space-around;
+}
+
+/* Style des liens et boutons du footer */
+.power-card-footer a,
+.power-card-footer form button {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white;
+}
+
+/* Bouton "Editer" */
+.power-card-footer a {
+    background-color: #f5a623; /* Orange renard */
+}
+
+.power-card-footer a:hover {
+    background-color: #ffb84d; /* Doré clair */
+    transform: scale(1.1);
+}
+
+/* Bouton de suppression */
+.power-card-footer form button {
+    background-color: red;
+    border: none;
+    cursor: pointer;
+}
+
+.power-card-footer form button:hover {
+    background-color: darkred;
+    transform: scale(1.1);
+    color: white;
 }
 
 /* Style des boutons */

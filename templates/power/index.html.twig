@@ -17,7 +17,7 @@
             <h3>{{ power.name }}</h3>
             <p>Rareter : {{ power.rarity ? power.rarity : "Non précisé" }}</p>
 
-            <div class="power-card-footer">
+            <div class="team-card-footer">
                 <a href="{{ path('power_edit', { id: power.id }) }}"
                     ><i class="fa-solid fa-pen"></i></a
                 >
@@ -31,7 +31,7 @@
                         name="_token"
                         value="{{ csrf_token('delete' ~ power.id) }}"
                     />
-                    <button type="submit">
+                    <button type="submit btn-danger">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </form>
