@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %} {% block title %}Créer une Nouvelle Mission{%
+endblock %} {% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %} {% block body %}
+<h2>Créer une Nouvelle Mission</h2>
+<div class="form-container">
+    <form
+        method="post"
+        action="{{ path('mission_new') }}"
+    >
+        <!-- Nom de la mission -->
+        <div class="form-group">
+            <label for="name">Nom :</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Nom de la mission"
+                required
+            />
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea
+                id="description"
+                name="description"
+                class="form-control"
+                rows="3"
+                placeholder="Description de la mission"
+                required
+            ></textarea>
+        </div>
+
+        <!-- Durée -->
+        <div class="form-group">
+            <label for="durer">Durée (en jours) :</label>
+            <input
+                type="number"
+                id="durer"
+                name="durer"
+                class="form-control"
+                placeholder="Durée de la mission en jours"
+                required
+            />
+        </div>
+
+        <!-- Statut -->
+        <div class="form-group">
+            <label for="status">Statut :</label>
+            <select id="status" name="status" class="form-control" required>
+                <option value="" disabled selected>
+                    -- Sélectionnez un statut --
+                </option>
+                <option value="En attente">En attente</option>
+                <option value="En cours">En cours</option>
+                <option value="Terminée">Terminée</option>
+            </select>
+        </div>
+
+        <!-- Équipe -->
+        <div class="form-group">
+            <label for="team">Équipe :</label>
+            <select id="team" name="team" class="form-control" required>
+                <option value="" disabled selected>
+                    -- Sélectionnez une équipe --
+                </option>
+                {% for team in teams %}
+                <option value="{{ team.id }}">{{ team.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Créer</button>
+            
+            {# <a href="{{ path('mission_list') }}" class="btn btn-secondary"
+                >Annuler</a
+            > #}
+        </div>
+    </form>
+</div>
+
+{% endblock %}

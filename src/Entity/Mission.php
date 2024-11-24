@@ -30,6 +30,7 @@ class Mission
     private ?\DateTimeInterface $createDate = null;
 
     #[ORM\OneToOne(inversedBy: 'mission', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Team $team = null;
 
     public function getId(): ?int
