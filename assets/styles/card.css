@@ -9,7 +9,11 @@
 
 /* Carte individuelle */
 .hero-card {
-    background: linear-gradient(145deg, #fff6e5, #f7e5cb); /* Couleur sable avec dégradé */
+    background: linear-gradient(
+        145deg,
+        #fff6e5,
+        #f7e5cb
+    ); /* Couleur sable avec dégradé */
     border-radius: 15px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -88,7 +92,6 @@
     color: white;
 }
 
-
 /* card.css */
 
 /* Style général pour le conteneur de cartes */
@@ -101,7 +104,11 @@
 
 /* Style pour chaque carte */
 .power-card {
-    background-color: #f8f9fa;
+    background: linear-gradient(
+        145deg,
+        #fff6e5,
+        #f7e5cb
+    ); /* Couleur sable avec dégradé */
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
@@ -161,4 +168,99 @@
     background-color: #007bff;
     padding: 8px 20px;
     border-radius: 5px;
+}
+
+/* Conteneur global pour les cartes d'équipe */
+.team-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Carte individuelle de l'équipe */
+.team-card {
+    background: linear-gradient(145deg, #fff6e5, #f7e5cb); /* Dégradé sable */
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet au survol de la carte */
+.team-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Titre de la carte d'équipe */
+.team-card h3 {
+    font-size: 1.5rem;
+    color: #f5a623; /* Orange renard */
+    margin: 15px 0;
+    text-transform: uppercase;
+}
+
+/* Détails de l'équipe */
+.team-card p {
+    font-size: 1rem;
+    color: #555; /* Gris foncé */
+    margin: 10px 15px;
+    line-height: 1.5;
+}
+
+/* Footer de la carte avec les boutons */
+.team-card-footer {
+    background-color: #fff;
+    border-top: 2px solid #f5a623; /* Bordure orange renard */
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Style des liens et boutons du footer */
+.team-card-footer a,
+.team-card-footer form button {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white;
+}
+
+/* Bouton de "Voir Détails" */
+.team-card-footer a {
+    background-color: #f5a623; /* Orange renard */
+}
+
+/* Effet au survol du lien "Voir Détails" */
+.team-card-footer a:hover {
+    background-color: #ffb84d; /* Doré clair */
+    transform: scale(1.1);
+}
+
+/* Bouton de suppression */
+.team-card-footer form button {
+    background-color: red;
+    border: none;
+    cursor: pointer;
+}
+
+/* Effet au survol du bouton de suppression */
+.team-card-footer form button:hover {
+    background-color: darkred;
+    transform: scale(1.1);
+    color: white;
+}
+
+/* Style pour l'élément de "Nombre de héros" */
+.team-card .heroes-count {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #f5a623; /* Orange renard */
 }

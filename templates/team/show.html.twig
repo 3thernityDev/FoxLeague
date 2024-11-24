@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Équipe : {{ team.name }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/teamController.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>{{ team.name }}</h2>
+
+    <div class="team-details">
+        <p><strong>Popularité :</strong> {{ team.popularity }}</p>
+        <p><strong>Taux de Réussite :</strong> {{ team.successRate }}%</p>
+        <p><strong>Taux d'Échec :</strong> {{ team.failRate }}%</p>
+        <p><strong>Nombre de Héros :</strong> {{ team.hero|length }}</p>
+
+        <h3>Héros dans l'équipe</h3>
+        <div class="hero-container">
+            {% for hero in team.hero %}
+                <div class="hero-bubble">
+                    {% if hero.image %}
+                        <img src="{{ asset('uploads/heroes/' ~ hero.image) }}" alt="{{ hero.name }}" class="hero-image" />
+                    {% else %}
+                        <div class="hero-placeholder">?</div>
+                    {% endif %}
+                    <p>{{ hero.name }}</p>
+                </div>
+            {% else %}
+                <p>Aucun héros dans cette équipe.</p>
+            {% endfor %}
+        </div>
+
+        <div class="team-actions">
+            <a href="{{ path('team_list') }}" class="btn btn-secondary">Retour à la liste des équipes</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

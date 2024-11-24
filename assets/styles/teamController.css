@@ -1,0 +1,91 @@
+/* Conteneur global pour les détails de l'équipe */
+.team-details {
+    padding: 20px;
+    background: #fff6e5;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Conteneur des héros sous forme de bulle */
+.hero-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Bulle de héros avec photo et nom */
+.hero-bubble {
+    text-align: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Image du héros dans la bulle */
+.hero-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+/* Placeholder pour les héros sans image */
+.hero-placeholder {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f5a623;
+    background-color: #f7e5cb;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Nom du héros sous l'image */
+.hero-bubble p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Bouton Retour */
+.team-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.team-actions .btn {
+    background-color: #f5a623;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.team-actions .btn:hover {
+    background-color: #ffb84d;
+    transform: scale(1.05);
+}

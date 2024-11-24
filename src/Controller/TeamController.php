@@ -23,6 +23,26 @@ class TeamController extends AbstractController
         $this->em = $em;
     }
 
+    // Route pour voir toutes les équipes
+    #[Route('/', name: 'list')]
+    public function list(): Response
+    {
+        // Récupérer toutes les équipes
+        $teams = $this->teamRepository->findAll();
+
+        return $this->render('team/index.html.twig', [
+            'teams' => $teams,
+        ]);
+    }
+
+    // Route pour voir une équipe
+    #[Route('/{id}/show', name: 'show', methods: ['GET'])]
+    public function showTeam(Team $team): Response
+    {
+        return $this->render('team/show.html.twig', [
+            'team' => $team,
+        ]);
+    }
 
 
     // Route pour crée une team
