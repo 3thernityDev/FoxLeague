@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'Équipe : {{ team.name }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Modifier l'Équipe : {{ team.name }}</h2>
+
+    <form method="post" action="{{ path('team_edit', { id: team.id }) }}" class="form-container">
+        <div class="form-group">
+            <label for="name">Nom de l'équipe :</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                value="{{ team.name }}"
+                placeholder="Nom de l'équipe"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="successRate">Taux de réussite :</label>
+            <input
+                type="number"
+                id="successRate"
+                name="successRate"
+                class="form-control"
+                min="0"
+                max="100"
+                value="{{ team.successRate }}"
+                placeholder="Taux de réussite"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="failRate">Taux d'échec :</label>
+            <input
+                type="number"
+                id="failRate"
+                name="failRate"
+                class="form-control"
+                min="0"
+                max="100"
+                value="{{ team.failRate }}"
+                placeholder="Taux d'échec"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="popularity">Popularité :</label>
+            <input
+                type="text"
+                id="popularity"
+                name="popularity"
+                class="form-control"
+                value="{{ team.popularity }}"
+                placeholder="Popularité"
+                required
+            />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Sauvegarder les Modifications
+            </button>
+            <a href="{{ path('team_list') }}" class="btn btn-secondary">
+                Annuler
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -70,4 +70,28 @@ class TeamController extends AbstractController
             'team' => $team,
         ]);
     }
+
+    // Route pour éditer une équipe
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Team $team): Response
+    {
+        if ($request->isMethod('POST')) {
+            $data = $request->request;
+
+            $team->setName($data->get('name'))
+            ->setSuccessRate((int) $data->get('succesRate'))
+            ->setFailRate((int) $data->get('FailRate'))
+            ->setPopularity($data->get('popularity'));
+
+            $this->em->flush();
+
+            $this->addFlash('success', 'Équipe modifiée avec succès !');
+
+            return $this->redirectToRoute('team_list');
+        }
+
+        return $this->render('team/edit.html.twig', [
+            'team' => $team,
+        ]);
+    }
 }
