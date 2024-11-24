@@ -38,6 +38,9 @@ class Hero
     #[ORM\JoinColumn(nullable: false)]
     private ?Power $powerLink = null;
 
+    #[ORM\ManyToOne(inversedBy: 'hero')]
+    private ?Team $team = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Hero
     public function setPowerLink(?Power $powerLink): static
     {
         $this->powerLink = $powerLink;
+
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): static
+    {
+        $this->team = $team;
 
         return $this;
     }
