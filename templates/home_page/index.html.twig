@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %} {% block title %}FoxLeague - Welcome!{% endblock
 %} {% block stylesheets %}
 <!-- Add your custom stylesheets here -->
-<link rel="stylesheet" href="/assets/styles/homePageController.css" />
+<link rel="stylesheet" href="{{ asset('styles/homePageController.css') }}" />
 {% endblock %} {% block body %}
 <div class="container">
     <!-- Section : 5 dernières missions -->
     <section>
+        <h1>
+            Pour information, les données situées ici sont actuellement fictives
+            pour le moment
+        </h1>
         <h2>🗺️ 5 Dernières Missions</h2>
         <div class="card-container">
             <div class="card">
