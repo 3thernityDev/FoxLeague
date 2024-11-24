@@ -23,7 +23,15 @@ class PowerController extends AbstractController
         $this->em = $em;
     }
 
-
+    // Route pour voir tout les pouvoir
+    #[Route('/', name: 'list')]
+    public function searchAll(): Response
+    {
+        $powers = $this->powerRepository->findAll();
+        return $this->render('power/index.html.twig', [
+            'powers' => $powers
+        ]);
+    }
     // Route pour créer un pouvoir
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
