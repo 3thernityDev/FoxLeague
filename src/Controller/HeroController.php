@@ -34,6 +34,16 @@ class HeroController extends AbstractController
         ]);
     }
 
+    // Route pour voir un héro
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function searchById(Hero $hero): Response
+    {
+        return $this->render('hero/show.html.twig', [
+            'hero' => $hero,
+        ]);
+    }
+
+
     // Route pour créer un héros
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function create(Request $request): Response

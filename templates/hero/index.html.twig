@@ -19,7 +19,7 @@ stylesheets %}
             <p>Taux de Succès : {{ hero.succesRate }}%</p>
             <p>Taux d'Échec : {{ hero.failRate }}%</p>
             <div class="hero-card-footer">
-                {# <a href="{{ path('hero_show', { id: hero.id }) }}">Voir</a> #}
+                <a href="{{ path('hero_show', { id: hero.id }) }}">Voir</a>
                 <a href="{{ path('hero_edit', { id: hero.id }) }}">Modifier</a>
                 <form
                     action="{{ path('hero_delete', { id: hero.id }) }}"
