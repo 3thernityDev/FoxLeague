@@ -3,7 +3,6 @@
 {% block title %}Détails du Héros : {{ hero.name }}{% endblock %}
 
 {% block stylesheets %}
-<!-- Ajout des styles des cartes -->
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
 {% endblock %}
 
@@ -13,32 +12,22 @@
 
     <div class="hero-card-container">
         <div class="hero-card">
-            <img src="{{ hero.image }}" alt="{{ hero.name }}" />
+            <img src="{{ hero.image }}" alt="Image de {{ hero.name }}" class="hero-image" />
             <h3>{{ hero.name }}</h3>
-            <p>
-                <strong>Identité Secrète :</strong>
-                {{ hero.secretIdendity ? hero.secretIdendity : "Inconnue" }}
+            <p><strong>Identité Secrète :</strong> {{ hero.secretIdendity ?: 'Inconnue' }}</p>
+            <p><strong>Âge :</strong> {{ hero.age ?: 'Non précisé' }}</p>
+            <p><strong>Pouvoir :</strong> 
+                {{ hero.powerLink ? hero.powerLink.name : 'Non défini' }}
             </p>
-            <p><strong>Âge :</strong> {{ hero.age ? hero.age : "Non précisé" }}</p>
-            <p>
-                <strong>Missions remarquables :</strong>
-                {{ hero.notableMission ? hero.notableMission : "Non spécifiées" }}
-            </p>
+            <p><strong>Missions remarquables :</strong> {{ hero.notableMission ?: 'Non spécifiées' }}</p>
             <p><strong>Taux de Succès :</strong> {{ hero.succesRate }}%</p>
             <p><strong>Taux d'Échec :</strong> {{ hero.failRate }}%</p>
+
             <div class="hero-card-footer">
                 <a href="{{ path('hero_list') }}" class="btn btn-secondary">Retour</a>
                 <a href="{{ path('hero_edit', { id: hero.id }) }}" class="btn btn-primary">Modifier</a>
-                <form
-                    action="{{ path('hero_delete', { id: hero.id }) }}"
-                    method="post"
-                    style="display: inline;"
-                >
-                    <input
-                        type="hidden"
-                        name="_token"
-                        value="{{ csrf_token('delete' ~ hero.id) }}"
-                    />
+                <form action="{{ path('hero_delete', { id: hero.id }) }}" method="post" style="display: inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ hero.id) }}">
                     <button type="submit" class="btn btn-danger">Supprimer</button>
                 </form>
             </div>

@@ -21,6 +21,10 @@ stylesheets %}
                 {{ hero.secretIdendity ? hero.secretIdendity : "Inconnue" }}
             </p>
             <p>Âge : {{ hero.age ? hero.age : "Non précisé" }}</p>
+            <p>
+                Pouvoir :
+                {{ hero.powerLink ? hero.powerLink.name : "Non défini" }}
+            </p>
             <p>Taux de Succès : {{ hero.succesRate }}%</p>
             <p>Taux d'Échec : {{ hero.failRate }}%</p>
             <div class="hero-card-footer">
