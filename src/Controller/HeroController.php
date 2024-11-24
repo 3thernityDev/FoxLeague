@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hero;
 use App\Repository\HeroRepository;
 use App\Repository\PowerRepository;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +17,14 @@ class HeroController extends AbstractController
 {
     private HeroRepository $heroRepository;
     private PowerRepository $powerRepository;
+    private TeamRepository $teamRepository;
     private EntityManagerInterface $em;
 
-    public function __construct(HeroRepository $heroRepository, EntityManagerInterface $em, PowerRepository $powerRepository)
+    public function __construct(HeroRepository $heroRepository, EntityManagerInterface $em, PowerRepository $powerRepository, TeamRepository $teamRepository)
     {
         $this->powerRepository = $powerRepository;
         $this->heroRepository = $heroRepository;
+        $this->teamRepository = $teamRepository;
         $this->em = $em;
     }
 
@@ -53,12 +56,14 @@ class HeroController extends AbstractController
     {
         $hero = new Hero();
         $powers = $this->powerRepository->findAll(); // Récupère tous les pouvoirs disponibles
+        $teams = $this->teamRepository->findAll(); // Récupère les équipes
 
         if ($request->isMethod('POST')) {
             $data = $request->request;
 
             // Utilisation directe du PowerRepository
             $power = $this->powerRepository->find($data->get('power')); // Récupère le pouvoir sélectionné
+            $team = $this->teamRepository->find($data->get('team')); //Récupère l'équipe sélectionné
 
             if (!$power) {
                 $this->addFlash('error', 'Pouvoir sélectionné invalide.');
@@ -72,7 +77,8 @@ class HeroController extends AbstractController
                 ->setNotableMission($data->get('notableMission'))
                 ->setSuccesRate((int) $data->get('succesRate'))
                 ->setFailRate((int) $data->get('failRate'))
-                ->setPowerLink($power);
+                ->setPowerLink($power)
+                ->setTeam($team);
 
             $this->em->persist($hero);
             $this->em->flush();
@@ -84,6 +90,7 @@ class HeroController extends AbstractController
         return $this->render('hero/new.html.twig', [
             'hero' => $hero,
             'powers' => $powers, // Passe les pouvoirs au template
+            'teams' => $teams, // Passe les équipes au template
         ]);
     }
 
@@ -98,9 +105,16 @@ class HeroController extends AbstractController
             // Récupération et vérification du pouvoir sélectionné
             $powerId = $data->get('power');
             $power = $this->powerRepository->find($powerId);
+            $teamId = $data->get('team');
+            $team = $this->teamRepository->find($teamId);
 
             if (!$power) {
                 $this->addFlash('error', 'Le pouvoir sélectionné est invalide.');
+                return $this->redirectToRoute('edit', ['id' => $hero->getId()]);
+            }
+
+            if (!$team) {
+                $this->addFlash('error', 'L\'équipe sélectionné est invalide.');
                 return $this->redirectToRoute('edit', ['id' => $hero->getId()]);
             }
 
@@ -112,7 +126,8 @@ class HeroController extends AbstractController
                     ->setNotableMission($data->get('notableMission'))
                     ->setSuccesRate((int) $data->get('succesRate'))
                     ->setFailRate((int) $data->get('failRate'))
-                    ->setPowerLink($power);
+                    ->setPowerLink($power)
+                    ->setTeam($team);
 
                 $this->em->flush();
 
@@ -127,6 +142,7 @@ class HeroController extends AbstractController
         return $this->render('hero/edit.html.twig', [
             'hero' => $hero,
             'powers' => $this->powerRepository->findAll(),
+            'teams' => $this->teamRepository->findAll(),
         ]);
     }
 

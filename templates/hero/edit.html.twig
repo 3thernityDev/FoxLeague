@@ -113,6 +113,20 @@
                 {% endfor %}
             </select>
         </div>
+        <!-- Sélecteur pour les équipes -->
+        <div class="form-group">
+            <label for="team">Equipe :</label>
+            <select id="team" name="team" class="form-control">
+                {% for team in teams %}
+                    <option 
+                        value="{{ team.id }}"
+                        {% if hero.team and hero.team.id == team.id %}selected{% endif %}
+                    >
+                        {{ team.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Sauvegarder</button>
