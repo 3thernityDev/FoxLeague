@@ -121,5 +121,23 @@ class MissionControlerController extends AbstractController
             'teams' => $teams,
         ]);
     }
+    // Route pour supprimer une mission
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Mission $mission): Response
+    {
+        // Vérification du token CSRF pour une suppression sécurisée (Sera utile lors de l'ajout du système d'authentification)
+        if (!$this->isCsrfTokenValid('delete' . $mission->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'Token CSRF invalide. Suppression impossible.');
+            return $this->redirectToRoute('mission_list');
+        }
 
+        // Suppression de l'entité
+        $this->em->remove($mission);
+        $this->em->flush();
+
+        // Message flash pour confirmer la suppression
+        $this->addFlash('success', 'Mission supprimé avec succès.');
+
+        return $this->redirectToRoute('mission_list');
+    }
 }

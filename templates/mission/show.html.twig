@@ -29,7 +29,7 @@
             <a href="{{ path('mission_edit', { id: mission.id }) }}" class="btn btn-warning" title="Modifier la mission">
                 <i class="fa-solid fa-pen"></i>
             </a>
-            {# <form
+            <form
                 action="{{ path('mission_delete', { id: mission.id }) }}"
                 method="post"
                 onsubmit="return confirmSuppression(event)"
@@ -42,7 +42,7 @@
                 <button type="submit" class="btn btn-danger" title="Supprimer la mission">
                     <i class="fa-solid fa-trash"></i>
                 </button>
-            </form> #}
+            </form>
         </div>
     </div>
 </div>
