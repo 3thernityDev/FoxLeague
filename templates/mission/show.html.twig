@@ -26,10 +26,10 @@
             <a href="{{ path('mission_list') }}" class="btn btn-secondary" title="Retour à la liste des missions">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
-            {# <a href="{{ path('mission_edit', { id: mission.id }) }}" class="btn btn-warning" title="Modifier la mission">
+            <a href="{{ path('mission_edit', { id: mission.id }) }}" class="btn btn-warning" title="Modifier la mission">
                 <i class="fa-solid fa-pen"></i>
             </a>
-            <form
+            {# <form
                 action="{{ path('mission_delete', { id: mission.id }) }}"
                 method="post"
                 onsubmit="return confirmSuppression(event)"

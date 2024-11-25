@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une Mission{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %}
+
+{% block body %}
+<h2>Modifier une Mission</h2>
+<div class="form-container">
+    <form
+        method="post"
+        action="{{ path('mission_edit', {'id': mission.id}) }}"
+    >
+        <!-- Nom de la mission -->
+        <div class="form-group">
+            <label for="name">Nom :</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Nom de la mission"
+                value="{{ mission.name }}"
+                required
+            />
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea
+                id="description"
+                name="description"
+                class="form-control"
+                rows="3"
+                placeholder="Description de la mission"
+                required
+            >{{ mission.description }}</textarea>
+        </div>
+
+        <!-- Durée -->
+        <div class="form-group">
+            <label for="durer">Durée (en jours) :</label>
+            <input
+                type="number"
+                id="durer"
+                name="durer"
+                class="form-control"
+                placeholder="Durée de la mission en jours"
+                value="{{ mission.durer }}"
+                required
+            />
+        </div>
+
+        <!-- Statut -->
+        <div class="form-group">
+            <label for="status">Statut :</label>
+            <select id="status" name="status" class="form-control" required>
+                <option value="En attente" {{ mission.status == 'En attente' ? 'selected' : '' }}>En attente</option>
+                <option value="En cours" {{ mission.status == 'En cours' ? 'selected' : '' }}>En cours</option>
+                <option value="Terminée" {{ mission.status == 'Terminée' ? 'selected' : '' }}>Terminée</option>
+            </select>
+        </div>
+
+        <!-- Équipe -->
+        <div class="form-group">
+            <label for="team">Équipe :</label>
+            <select id="team" name="team" class="form-control" required>
+                <option value="" disabled>-- Sélectionnez une équipe --</option>
+                {% for team in teams %}
+                    <option
+                        value="{{ team.id }}"
+                        {{ mission.team and mission.team.id == team.id ? 'selected' : '' }}
+                    >
+                        {{ team.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+            <a href="{{ path('mission_list') }}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

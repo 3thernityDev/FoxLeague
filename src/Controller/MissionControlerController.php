@@ -79,4 +79,47 @@ class MissionControlerController extends AbstractController
             'teams' => $teams,
         ]);
     }
+
+    // Modifier une mission
+    #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Mission $mission): Response
+    {
+        $teams = $this->teamrepository->findAll();
+
+        // Vérifie si la mission existe
+        if (!$mission) {
+            $this->addFlash('error', 'Mission introuvable.');
+            return $this->redirectToRoute('mission_list');
+        }
+
+        if ($request->isMethod('POST')) {
+            $data = $request->request;
+
+            // Récupère l'équipe sélectionnée
+            $team = $this->teamrepository->find($data->get('team'));
+            if (!$team || ($team->getMission() && $team->getMission() !== $mission)) {
+                // Vérifie si l'équipe est invalide ou déjà assignée à une autre mission
+                $this->addFlash('error', 'Équipe invalide ou déjà assignée à une autre mission.');
+                return $this->redirectToRoute('mission_edit', ['id' => $mission->getId()]);
+            }
+
+            // Met à jour les champs de la mission
+            $mission->setName($data->get('name'))
+                ->setDescription($data->get('description'))
+                ->setDurer((int) $data->get('durer'))
+                ->setStatus($data->get('status'))
+                ->setTeam($team); // Associe la nouvelle équipe à la mission
+
+            $this->em->flush();
+
+            $this->addFlash('success', 'Mission modifiée avec succès !');
+            return $this->redirectToRoute('mission_list');
+        }
+
+        return $this->render('mission/edit.html.twig', [
+            'mission' => $mission,
+            'teams' => $teams,
+        ]);
+    }
+
 }
