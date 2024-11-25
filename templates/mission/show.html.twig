@@ -1,16 +1,15 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Détails de la Mission - {{ mission.name }}{% endblock %}
+{% extends 'base.html.twig' %} 
+{% block title %}Détails de la Mission : {{ mission.name }}{% endblock %} 
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
-{% endblock %}
+<link rel="stylesheet" href="{{ asset('styles/teamController.css') }}" />
+{% endblock %} 
 
 {% block body %}
 <div class="container">
-    <h2>Détails de la Mission</h2>
+    <h2>{{ mission.name }}</h2>
+
     <div class="team-details">
-        <p><strong>Nom :</strong> {{ mission.name }}</p>
         <p><strong>Description :</strong> {{ mission.description }}</p>
         <p><strong>Durée :</strong> {{ mission.durer }} jours</p>
         <p><strong>Status :</strong> {{ mission.status }}</p>
@@ -19,14 +18,41 @@
             {{ mission.createDate|date('d/m/Y H:i') }}
         </p>
         <p>
-            <strong>Équipe Assignée :</strong>
+            <strong>Équipe :</strong> 
             {{ mission.team ? mission.team.name : 'Non assignée' }}
         </p>
-    </div>
 
-    <div class="team-actions">
-        {# <a href="{{ path('mission_edit', { id: mission.id }) }}" class="btn btn-primary">Modifier</a> #}
-        <a href="{{ path('mission_list') }}" class="btn btn-secondary">Retour à la liste</a>
+        <div class="team-actions">
+            <a href="{{ path('mission_list') }}" class="btn btn-secondary" title="Retour à la liste des missions">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <a href="{{ path('mission_edit', { id: mission.id }) }}" class="btn btn-warning" title="Modifier la mission">
+                <i class="fa-solid fa-pen"></i>
+            </a>
+            <form
+                action="{{ path('mission_delete', { id: mission.id }) }}"
+                method="post"
+                onsubmit="return confirmSuppression(event)"
+            >
+                <input
+                    type="hidden"
+                    name="_token"
+                    value="{{ csrf_token('delete' ~ mission.id) }}"
+                />
+                <button type="submit" class="btn btn-danger" title="Supprimer la mission">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+    function confirmSuppression(event) {
+        const confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette mission ?");
+        if (!confirmation) {
+            event.preventDefault();
+        }
+    }
+</script>
 {% endblock %}

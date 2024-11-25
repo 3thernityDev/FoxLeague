@@ -79,4 +79,65 @@ class MissionControlerController extends AbstractController
             'teams' => $teams,
         ]);
     }
+
+    // Modifier une mission
+    #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Mission $mission): Response
+    {
+        $teams = $this->teamrepository->findAll();
+
+        // Vérifie si la mission existe
+        if (!$mission) {
+            $this->addFlash('error', 'Mission introuvable.');
+            return $this->redirectToRoute('mission_list');
+        }
+
+        if ($request->isMethod('POST')) {
+            $data = $request->request;
+
+            // Récupère l'équipe sélectionnée
+            $team = $this->teamrepository->find($data->get('team'));
+            if (!$team || ($team->getMission() && $team->getMission() !== $mission)) {
+                // Vérifie si l'équipe est invalide ou déjà assignée à une autre mission
+                $this->addFlash('error', 'Équipe invalide ou déjà assignée à une autre mission.');
+                return $this->redirectToRoute('mission_edit', ['id' => $mission->getId()]);
+            }
+
+            // Met à jour les champs de la mission
+            $mission->setName($data->get('name'))
+                ->setDescription($data->get('description'))
+                ->setDurer((int) $data->get('durer'))
+                ->setStatus($data->get('status'))
+                ->setTeam($team); // Associe la nouvelle équipe à la mission
+
+            $this->em->flush();
+
+            $this->addFlash('success', 'Mission modifiée avec succès !');
+            return $this->redirectToRoute('mission_list');
+        }
+
+        return $this->render('mission/edit.html.twig', [
+            'mission' => $mission,
+            'teams' => $teams,
+        ]);
+    }
+    // Route pour supprimer une mission
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Mission $mission): Response
+    {
+        // Vérification du token CSRF pour une suppression sécurisée (Sera utile lors de l'ajout du système d'authentification)
+        if (!$this->isCsrfTokenValid('delete' . $mission->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'Token CSRF invalide. Suppression impossible.');
+            return $this->redirectToRoute('mission_list');
+        }
+
+        // Suppression de l'entité
+        $this->em->remove($mission);
+        $this->em->flush();
+
+        // Message flash pour confirmer la suppression
+        $this->addFlash('success', 'Mission supprimé avec succès.');
+
+        return $this->redirectToRoute('mission_list');
+    }
 }
