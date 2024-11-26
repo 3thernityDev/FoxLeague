@@ -1,9 +1,27 @@
-{% extends 'base.html.twig' %} {% block title %}Créer un Nouveau Héros{%
-endblock %} {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
-{% endblock %} {% block body %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Nouveau Héros{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+{% endblock %}
+
+{% block body %}
 <div class="container">
     <h2>Créer un Nouveau Héros</h2>
+
+    {# Affichage des messages flash (succès ou erreur) #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     <form method="post" action="{{ path('hero_new') }}" class="form-container">
         <div class="form-group">
@@ -14,6 +32,7 @@ endblock %} {% block stylesheets %}
                 name="name"
                 class="form-control"
                 placeholder="Nom du héros"
+                value="{{ app.request.get('name') }}"
                 required
             />
         </div>
@@ -26,6 +45,7 @@ endblock %} {% block stylesheets %}
                 name="image"
                 class="form-control"
                 placeholder="Lien vers l'image du héros"
+                value="{{ app.request.get('image') }}" 
             />
         </div>
 
@@ -37,6 +57,7 @@ endblock %} {% block stylesheets %}
                 name="secretIdendity"
                 class="form-control"
                 placeholder="Identité secrète"
+                value="{{ app.request.get('secretIdendity') }}" 
             />
         </div>
 
@@ -48,6 +69,7 @@ endblock %} {% block stylesheets %}
                 name="age"
                 class="form-control"
                 placeholder="Âge du héros"
+                value="{{ app.request.get('age') }}" 
             />
         </div>
 
@@ -59,7 +81,7 @@ endblock %} {% block stylesheets %}
                 class="form-control"
                 rows="3"
                 placeholder="Description des missions notables"
-            ></textarea>
+            >{{ app.request.get('notableMission') }}</textarea> 
         </div>
 
         <div class="form-group">
@@ -72,6 +94,7 @@ endblock %} {% block stylesheets %}
                 min="0"
                 max="100"
                 placeholder="Taux de succès du héros"
+                value="{{ app.request.get('succesRate') }}" 
                 required
             />
         </div>
@@ -86,6 +109,7 @@ endblock %} {% block stylesheets %}
                 min="0"
                 max="100"
                 placeholder="Taux d'échec du héros"
+                value="{{ app.request.get('failRate') }}" 
                 required
             />
         </div>
@@ -94,32 +118,27 @@ endblock %} {% block stylesheets %}
         <div class="form-group">
             <label for="power">Pouvoir :</label>
             <select id="power" name="power" class="form-control">
-                <option value="" disabled selected>
-                    -- Sélectionnez un pouvoir --
-                </option>
+                <option value="" disabled selected>-- Sélectionnez un pouvoir --</option>
                 {% for power in powers %}
-                <option value="{{ power.id }}">{{ power.name }}</option>
+                    <option value="{{ power.id }}" {% if app.request.get('power') == power.id %}selected{% endif %}>{{ power.name }}</option>
                 {% endfor %}
             </select>
         </div>
+
         <!-- Sélecteur pour l'entité Team -->
         <div class="form-group">
             <label for="team">Equipe :</label>
             <select id="team" name="team" class="form-control">
-                <option value="" disabled selected>
-                    -- Sélectionnez une équipe --
-                </option>
+                <option value="" selected>-- Aucune équipe --</option> <!-- Option "Aucune équipe" par défaut -->
                 {% for team in teams %}
-                <option value="{{ team.id }}">{{ team.name }}</option>
+                    <option value="{{ team.id }}" {% if app.request.get('team') == team.id %}selected{% endif %}>{{ team.name }}</option>
                 {% endfor %}
             </select>
         </div>
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Créer</button>
-            <a href="{{ path('hero_list') }}" class="btn btn-secondary"
-                >Annuler</a
-            >
+            <a href="{{ path('hero_list') }}" class="btn btn-secondary">Annuler</a>
         </div>
     </form>
 </div>
