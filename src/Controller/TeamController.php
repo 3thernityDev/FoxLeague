@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Team;
-use App\Repository\HeroRepository;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,13 +43,11 @@ class TeamController extends AbstractController
         ]);
     }
 
-
-    // Route pour crée une team
+    // Route pour créer une équipe
     #[Route('/new', name: 'new')]
     public function create(Request $request): Response
     {
         $team = new Team();
-
 
         if ($request->isMethod('POST')) {
             $data = $request->request;
@@ -63,7 +60,7 @@ class TeamController extends AbstractController
             $this->em->persist($team);
             $this->em->flush();
 
-            $this->addFlash('success', 'Team créé avec succès ! ');
+            $this->addFlash('success', 'Team créé avec succès !');
         }
 
         return $this->render('team/new.html.twig', [
@@ -99,10 +96,23 @@ class TeamController extends AbstractController
     #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
     public function delete(Team $team): Response
     {
+        // Vérification si l'équipe a des héros associés
+        if ($team->getHero()->count() > 0) {
+            // Dissocier tous les héros de cette équipe avant de la supprimer
+            foreach ($team->getHero() as $hero) {
+                $hero->setTeam(null); // Dissocier le héros de l'équipe
+                $this->em->persist($hero); // Sauvegarder les modifications
+            }
+        }
+
+        // Suppression de l'équipe
         $this->em->remove($team);
         $this->em->flush();
 
+        // Message flash de succès
         $this->addFlash('success', 'Équipe supprimée avec succès !');
+
+        // Redirection vers la liste des équipes
         return $this->redirectToRoute('team_list');
     }
 }
