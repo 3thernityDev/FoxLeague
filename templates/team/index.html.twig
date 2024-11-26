@@ -10,8 +10,14 @@
             ><i class="fa-solid fa-circle-plus"></i
         ></a>
     </h2>
-
-    {% if teams is empty %}
+    <!-- Bloc pour les messages flash -->
+    {% for label, messages in app.flashes %}
+    <div class="alert alert-{{ label }}">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %} {% if teams is empty %}
     <p>Aucune équipe trouvée.</p>
     {% else %}
     <div class="team-card-container">
@@ -24,9 +30,11 @@
             <p><strong>Nombre de Héros :</strong> {{ team.hero | length }}</p>
             <div class="team-card-footer">
                 <a href="{{ path('team_show', { id: team.id }) }}"
-                    ><i class="fa-solid fa-eye"></i></a
-                >
-                <a href="{{ path('team_edit', { id: team.id }) }}"><i class="fa-solid fa-pen"></i></a>
+                    ><i class="fa-solid fa-eye"></i
+                ></a>
+                <a href="{{ path('team_edit', { id: team.id }) }}"
+                    ><i class="fa-solid fa-pen"></i
+                ></a>
                 <form
                     action="{{ path('team_delete', { id: team.id }) }}"
                     method="post"
@@ -37,7 +45,9 @@
                         name="_token"
                         value="{{ csrf_token('delete' ~ team.id) }}"
                     />
-                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                    <button type="submit">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </form>
             </div>
         </div>

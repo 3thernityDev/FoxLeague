@@ -1,10 +1,8 @@
-{% extends 'base.html.twig' %} 
-{% block title %}Liste des Missions{% endblock %}
+{% extends 'base.html.twig' %} {% block title %}Liste des Missions{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
 <link rel="stylesheet" href="{{ asset('styles/teamController.css') }}" />
-{% endblock %} 
-{% block body %}
+{% endblock %} {% block body %}
 <div class="container">
     <h2>
         Liste des Missions
@@ -12,8 +10,14 @@
             <i class="fa-solid fa-circle-plus"></i>
         </a>
     </h2>
-
-    {% if missions is empty %}
+    <!-- Bloc pour les messages flash -->
+    {% for label, messages in app.flashes %}
+    <div class="alert alert-{{ label }}">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %} {% if missions is empty %}
     <p>Aucune mission trouvée.</p>
     {% else %}
     <div class="team-card-container">
@@ -24,12 +28,12 @@
             <p><strong>Durée :</strong> {{ mission.durer }} jours</p>
             <p><strong>Status :</strong> {{ mission.status }}</p>
             <p>
-                <strong>Date de Création :</strong> 
+                <strong>Date de Création :</strong>
                 {{ mission.createDate|date('d/m/Y H:i') }}
             </p>
             <p>
-                <strong>Équipe :</strong> 
-                {{ mission.team ? mission.team.name : 'Non assignée' }}
+                <strong>Équipe :</strong>
+                {{ mission.team ? mission.team.name : "Non assignée" }}
             </p>
             <div class="team-card-footer">
                 <a href="{{ path('mission_show', { id: mission.id }) }}">
@@ -48,7 +52,9 @@
                         name="_token"
                         value="{{ csrf_token('delete' ~ mission.id) }}"
                     />
-                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                    <button type="submit">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </form>
             </div>
         </div>
