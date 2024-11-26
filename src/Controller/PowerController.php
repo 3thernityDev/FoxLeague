@@ -79,11 +79,21 @@ class PowerController extends AbstractController
     #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
     public function delete(Power $power): Response
     {
-        // Suppression du pouvoir de la base de données
+        // Vérifier si le pouvoir est attribué à des héros
+        if (!$power->getHeroLink()->isEmpty()) {
+            // Ajout d'un message d'erreur dans la session
+            $this->addFlash('error', 'Ce pouvoir est attribué à un ou plusieurs héros. Veuillez d\'abord supprimer ou modifier les héros associés.');
+            // Rediriger vers la liste des pouvoirs
+            return $this->redirectToRoute('power_list');
+        }
+
+        // Si aucune dépendance, suppression du pouvoir
         $this->em->remove($power);
         $this->em->flush();
 
-        // Redirection vers la liste des pouvoirs après suppression
+        // Ajout d'un message de confirmation
+        $this->addFlash('success', 'Le pouvoir a été supprimé avec succès.');
+
         return $this->redirectToRoute('power_list');
     }
 }

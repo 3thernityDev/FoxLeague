@@ -1,13 +1,9 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Liste des pouvoirs{% endblock %}
-
+{% extends 'base.html.twig' %} {% block title %}Liste des pouvoirs{% endblock %}
 {% block stylesheets %}
 <!-- Add your custom stylesheets here -->
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
-{% endblock %}
-
-{% block body %}
+<link rel="stylesheet" href="{{ asset('styles/flashMessages.css') }}" />
+{% endblock %} {% block body %}
 <div class="container">
     <h2>
         Les pouvoirs !
@@ -15,6 +11,15 @@
             <i class="fa-solid fa-circle-plus"></i>
         </a>
     </h2>
+
+    <!-- Bloc pour les messages flash -->
+    {% for label, messages in app.flashes %}
+    <div class="alert alert-{{ label }}">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
 
     <div class="power-card-container">
         {% for power in powers %}
@@ -26,8 +31,16 @@
                 <a href="{{ path('power_edit', { id: power.id }) }}">
                     <i class="fa-solid fa-pen"></i>
                 </a>
-                <form action="{{ path('power_delete', { id: power.id }) }}" method="post" onsubmit="return confirmSuppression(event)">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ power.id) }}" />
+                <form
+                    action="{{ path('power_delete', { id: power.id }) }}"
+                    method="post"
+                    onsubmit="return confirmSuppression(event)"
+                >
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value="{{ csrf_token('delete' ~ power.id) }}"
+                    />
                     <button type="submit" class="btn-danger">
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -43,7 +56,9 @@
 <script>
     // Fonction pour vérification avant suppression
     function confirmSuppression(event) {
-        const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce pouvoir ?");
+        const confirmation = confirm(
+            "Êtes-vous sûr de vouloir supprimer ce pouvoir ?"
+        );
         if (!confirmation) {
             event.preventDefault();
         }
