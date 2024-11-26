@@ -41,6 +41,14 @@ class Team
         $this->hero = new ArrayCollection();
     }
 
+    /**
+     * Vérifie si l'équipe contient 5 héros ou plus.
+     */
+    public function isFull(): bool
+    {
+        return $this->hero->count() >= 5;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,7 +87,6 @@ class Team
     public function removeHero(Hero $hero): static
     {
         if ($this->hero->removeElement($hero)) {
-            // set the owning side to null (unless already changed)
             if ($hero->getTeam() === $this) {
                 $hero->setTeam(null);
             }
@@ -131,7 +138,6 @@ class Team
 
     public function setMission(?Mission $mission): static
     {
-        // Assurez-vous que l'inverse est correctement mis à jour
         if ($mission && $mission->getTeam() !== $this) {
             $mission->setTeam($this);
         }
