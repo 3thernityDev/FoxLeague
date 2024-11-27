@@ -6,42 +6,26 @@
 <div class="container">
     <!-- Section : 5 dernières missions -->
     <section>
-        <h1>
-            Pour information, les données situées ici sont actuellement fictives
-            pour le moment
-        </h1>
         <h2>🗺️ 5 Dernières Missions</h2>
         <div class="card-container">
+            {% for mission in missions %}
             <div class="card">
                 <div class="card-body">
-                    <h3>Sauver la forêt 🌲</h3>
-                    <p>Description de la mission...</p>
+                    <h3>{{ mission.name }}</h3>
+                    <p>{{ mission.description }}</p>
+                    <p><strong>Durée :</strong> {{ mission.durer }} jours</p>
+                    <p><strong>Status :</strong> {{ mission.status }}</p>
+                    <p>
+                        <small
+                            >Créée le :
+                            {{ mission.createDate|date('d/m/Y') }}</small
+                        >
+                    </p>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Protéger la ville 🏙️</h3>
-                    <p>Description de la mission...</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Attraper les méchants 👮</h3>
-                    <p>Description de la mission...</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Éteindre les feux 🔥</h3>
-                    <p>Description de la mission...</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Reconstruire les écoles 🏫</h3>
-                    <p>Description de la mission...</p>
-                </div>
-            </div>
+            {% else %}
+            <p>Aucune mission disponible pour le moment.</p>
+            {% endfor %}
         </div>
     </section>
 
