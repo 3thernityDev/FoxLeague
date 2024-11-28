@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\MissionRepository;
-use App\Repository\PowerRepository; // Assurez-vous d'importer cette classe si elle est utilisée.
+use App\Repository\PowerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
