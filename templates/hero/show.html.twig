@@ -13,6 +13,14 @@
                 class="hero-image"
             />
             <h3>{{ hero.name }}</h3>
+
+            <!-- Badge de l'équipe -->
+            {% if hero.team %}
+            <span class="team-badge">{{ hero.team.name }}</span>
+            {% else %}
+            <span class="team-badge no-team">Pas d'équipe</span>
+            {% endif %}
+
             <p>
                 <strong>Identité Secrète :</strong>
                 {{ hero.secretIdendity ?: 'Inconnue' }}
@@ -30,14 +38,15 @@
             <p><strong>Taux d'Échec :</strong> {{ hero.failRate }}%</p>
 
             <div class="hero-card-footer">
-                <a href="{{ path('hero_list') }}" class="btn btn-secondary"
-                    ><i class="fa-solid fa-arrow-left"></i></a
-                >
+                <a href="{{ path('hero_list') }}" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
                 <a
                     href="{{ path('hero_edit', { id: hero.id }) }}"
                     class="btn btn-primary"
-                    ><i class="fa-solid fa-pen"></i></a
                 >
+                    <i class="fa-solid fa-pen"></i>
+                </a>
                 <form
                     action="{{ path('hero_delete', { id: hero.id }) }}"
                     method="post"
@@ -48,7 +57,9 @@
                         name="_token"
                         value="{{ csrf_token('delete' ~ hero.id) }}"
                     />
-                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                    <button type="submit">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </form>
             </div>
         </div>

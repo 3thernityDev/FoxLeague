@@ -92,6 +92,25 @@
     color: white;
 }
 
+/* Badge pour l'équipe */
+.team-badge {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 5px 10px;
+    background-color: #4caf50; /* Vert par défaut */
+    color: white;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Badge pour "Pas d'équipe" */
+.team-badge.no-team {
+    background-color: #f44336; /* Rouge */
+}
+
 /* Style général pour le conteneur de cartes */
 .power-card-container {
     display: flex;

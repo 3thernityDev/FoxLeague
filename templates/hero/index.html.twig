@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %} {% block title %}Nos héros{% endblock %} {% block
 stylesheets %}
-<!-- Ajoutez vos styles personnalisés ici -->
 <link rel="stylesheet" href="{{ asset('styles/card.css') }}" />
 <link rel="stylesheet" href="{{ asset('styles/flashMessages.css') }}" />
 {% endblock %} {% block body %}
@@ -24,6 +23,14 @@ stylesheets %}
         <div class="hero-card">
             <img src="{{ hero.image }}" alt="{{ hero.name }}" />
             <h3>{{ hero.name }}</h3>
+
+            <!-- Badge de l'équipe -->
+            {% if hero.team %}
+            <span class="team-badge">{{ hero.team.name }}</span>
+            {% else %}
+            <span class="team-badge no-team">Pas d'équipe</span>
+            {% endif %}
+
             <p>
                 <strong> Identité Secrète : </strong>
                 {{ hero.secretIdendity ? hero.secretIdendity : "Inconnue" }}
@@ -45,12 +52,12 @@ stylesheets %}
                 {{ hero.failRate }}%
             </p>
             <div class="hero-card-footer">
-                <a href="{{ path('hero_show', { id: hero.id }) }}"
-                    ><i class="fa-solid fa-eye"></i
-                ></a>
-                <a href="{{ path('hero_edit', { id: hero.id }) }}"
-                    ><i class="fa-solid fa-pen"></i
-                ></a>
+                <a href="{{ path('hero_show', { id: hero.id }) }}">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+                <a href="{{ path('hero_edit', { id: hero.id }) }}">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
                 <form
                     action="{{ path('hero_delete', { id: hero.id }) }}"
                     method="post"
@@ -76,16 +83,12 @@ stylesheets %}
 <script>
     // Fonction pour verification avant suppression
     function confirmSuppression(event) {
-        // Affiche une boîte de dialogue de confirmation
         const confirmation = confirm(
             "Êtes-vous sûr de vouloir supprimer ce héros ?"
         );
-
-        // Si l'utilisateur clique sur "Annuler", on empêche l'envoi du formulaire
         if (!confirmation) {
             event.preventDefault();
         }
     }
 </script>
-
 {% endblock %}
