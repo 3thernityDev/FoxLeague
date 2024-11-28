@@ -56,15 +56,11 @@
 
         <div class="form-group">
             <label for="popularity">Popularité :</label>
-            <input
-                type="text"
-                id="popularity"
-                name="popularity"
-                class="form-control"
-                value="{{ team.popularity }}"
-                placeholder="Popularité"
-                required
-            />
+            <select id="popularity" name="popularity" class="form-control" required>
+                <option value="high" {% if team.popularity == 'high' %}selected{% endif %}>Haute</option>
+                <option value="medium" {% if team.popularity == 'medium' %}selected{% endif %}>Moyenne</option>
+                <option value="low" {% if team.popularity == 'low' %}selected{% endif %}>Faible</option>
+            </select>
         </div>
 
         <div class="form-actions">

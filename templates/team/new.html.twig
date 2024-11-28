@@ -49,25 +49,26 @@ endblock %} {% block stylesheets %}
 
         <div class="form-group">
             <label for="popularity">Popularité :</label>
-            <input
-                type="text"
+            <select
                 id="popularity"
                 name="popularity"
                 class="form-control"
-                placeholder="Popularité"
                 required
-            />
+            >
+                <option value="high">Haute</option>
+                <option value="medium">Moyenne</option>
+                <option value="low">Faible</option>
+            </select>
         </div>
+
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">
                 Créer l'Équipe
             </button>
 
-            
             <a href="{{ path('team_list') }}" class="btn btn-secondary"
                 >Annuler</a
             >
-           
         </div>
     </form>
 </div>

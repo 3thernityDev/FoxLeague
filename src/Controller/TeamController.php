@@ -61,6 +61,7 @@ class TeamController extends AbstractController
             $this->em->flush();
 
             $this->addFlash('success', 'Team créé avec succès !');
+            return $this->redirectToRoute('team_list');
         }
 
         return $this->render('team/new.html.twig', [
