@@ -63,10 +63,9 @@ endblock %} {% block stylesheets %}
         <!-- Équipe -->
         <div class="form-group">
             <label for="team">Équipe :</label>
-            <select id="team" name="team" class="form-control" required>
-                <option value="" disabled selected>
-                    -- Sélectionnez une équipe --
-                </option>
+            <select id="team" name="team" class="form-control">
+                <option value="" selected>-- Aucune équipe --</option> <!-- Option "Aucune équipe" par défaut -->
+
                 {% for team in teams %}
                 <option value="{{ team.id }}">{{ team.name }}</option>
                 {% endfor %}

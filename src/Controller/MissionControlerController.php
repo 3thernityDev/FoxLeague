@@ -48,14 +48,17 @@ class MissionControlerController extends AbstractController
     public function create(Request $request): Response
     {
         $mission = new Mission();
-        $teams = $this->teamrepository->findAll();
+        $teams = $this->teamrepository->findAll(); // Récupère toutes les équipes disponibles
 
         if ($request->isMethod('POST')) {
             $data = $request->request;
 
-            // Récupère l'équipe
-            $team = $this->teamrepository->find($data->get('team'));
-            if (!$team || $team->getMission()) { // Vérifie si l'équipe a déjà une mission
+            // Récupère l'équipe sélectionnée ou null si aucune n'est choisie
+            $teamId = $data->get('team');
+            $team = $teamId ? $this->teamrepository->find($teamId) : null;
+
+            // Validation de l'équipe
+            if ($team && $team->getMission()) { // Vérifie si l'équipe est déjà assignée
                 $this->addFlash('error', 'Équipe invalide ou déjà assignée à une mission.');
                 return $this->redirectToRoute('mission_new');
             }
@@ -66,8 +69,9 @@ class MissionControlerController extends AbstractController
                 ->setDurer((int) $data->get('durer'))
                 ->setStatus($data->get('status'))
                 ->setCreateDate(new \DateTime())
-                ->setTeam($team); // Associe l'équipe à la mission
+                ->setTeam($team); // Associe l'équipe à la mission (null si aucune)
 
+            // Persiste et enregistre la mission dans la base de données
             $this->em->persist($mission);
             $this->em->flush();
 
@@ -75,30 +79,36 @@ class MissionControlerController extends AbstractController
             return $this->redirectToRoute('mission_list');
         }
 
+        // Affiche le formulaire pour créer une mission
         return $this->render('mission/new.html.twig', [
             'teams' => $teams,
         ]);
     }
 
+
     // Modifier une mission
     #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Mission $mission): Response
     {
-        $teams = $this->teamrepository->findAll();
-
         // Vérifie si la mission existe
         if (!$mission) {
             $this->addFlash('error', 'Mission introuvable.');
             return $this->redirectToRoute('mission_list');
         }
 
+        // Récupère toutes les équipes disponibles pour affichage
+        $teams = $this->teamrepository->findAll();
+
+        // Vérifie si une requête POST a été soumise
         if ($request->isMethod('POST')) {
             $data = $request->request;
 
-            // Récupère l'équipe sélectionnée
-            $team = $this->teamrepository->find($data->get('team'));
-            if (!$team || ($team->getMission() && $team->getMission() !== $mission)) {
-                // Vérifie si l'équipe est invalide ou déjà assignée à une autre mission
+            // Récupère l'équipe sélectionnée ou null si aucune n'est choisie
+            $teamId = $data->get('team');
+            $team = $teamId ? $this->teamrepository->find($teamId) : null;
+
+            // Si l'équipe est assignée à une autre mission
+            if ($team && $team->getMission() && $team->getMission() !== $mission) {
                 $this->addFlash('error', 'Équipe invalide ou déjà assignée à une autre mission.');
                 return $this->redirectToRoute('mission_edit', ['id' => $mission->getId()]);
             }
@@ -108,19 +118,22 @@ class MissionControlerController extends AbstractController
                 ->setDescription($data->get('description'))
                 ->setDurer((int) $data->get('durer'))
                 ->setStatus($data->get('status'))
-                ->setTeam($team); // Associe la nouvelle équipe à la mission
+                ->setTeam($team); // Met à jour l'équipe associée (null si aucune)
 
+            // Enregistre les modifications dans la base de données
             $this->em->flush();
 
             $this->addFlash('success', 'Mission modifiée avec succès !');
             return $this->redirectToRoute('mission_list');
         }
 
+        // Affiche le formulaire avec les données de la mission
         return $this->render('mission/edit.html.twig', [
             'mission' => $mission,
             'teams' => $teams,
         ]);
     }
+
     // Route pour supprimer une mission
     #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Mission $mission): Response
