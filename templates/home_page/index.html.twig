@@ -32,37 +32,24 @@
     <!-- Section : Liste des raretés de pouvoir -->
     <section>
         <h2>🌟 Rareté des Pouvoirs</h2>
-        <div class="card-container">
+        <div class="card-container power-container">
+            {% for rarity, powers in groupedPowers %}
             <div class="card">
                 <div class="card-body">
-                    <h3>Légendaire ⚡</h3>
-                    <p>Les pouvoirs les plus puissants !</p>
+                    <h3>
+                        {% if rarity == 'legendary' %} Légendaire ⚡ {% elseif
+                        rarity == 'epic' %} Épique ✨ {% elseif rarity == 'rare'
+                        %} Rare 🌟 {% elseif rarity == 'common' %} Commun 💎 {%
+                        endif %}
+                    </h3>
+                    <ul>
+                        {% for power in powers %}
+                        <li>{{ power.name }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Épique ✨</h3>
-                    <p>Un pouvoir impressionnant.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Rare 🌟</h3>
-                    <p>Des pouvoirs exceptionnels.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Commun 💎</h3>
-                    <p>Des pouvoirs assez courants.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Faible ⚙️</h3>
-                    <p>Les pouvoirs les moins puissants.</p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 
