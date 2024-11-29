@@ -10,11 +10,13 @@
 <div class="container">
     <h2>Modifier le Héros : {{ hero.name }}</h2>
 
+    <!-- Formulaire pour modifier le héros -->
     <form
         method="post"
         action="{{ path('hero_edit', { id: hero.id }) }}"
         class="form-container"
     >
+        <!-- Nom -->
         <div class="form-group">
             <label for="name">Nom :</label>
             <input
@@ -27,6 +29,7 @@
             />
         </div>
 
+        <!-- URL de l'Image -->
         <div class="form-group">
             <label for="image">URL de l'Image :</label>
             <input
@@ -39,6 +42,7 @@
             />
         </div>
 
+        <!-- Identité Secrète -->
         <div class="form-group">
             <label for="secretIdendity">Identité Secrète :</label>
             <input
@@ -50,6 +54,7 @@
             />
         </div>
 
+        <!-- Âge -->
         <div class="form-group">
             <label for="age">Âge :</label>
             <input
@@ -61,6 +66,7 @@
             />
         </div>
 
+        <!-- Mission Remarquable -->
         <div class="form-group">
             <label for="notableMission">Mission Remarquable :</label>
             <textarea
@@ -68,9 +74,12 @@
                 name="notableMission"
                 class="form-control"
                 rows="3"
-            >{{ hero.notableMission }}</textarea>
+            >
+                {{ hero.notableMission }}
+            </textarea>
         </div>
 
+        <!-- Taux de Succès -->
         <div class="form-group">
             <label for="succesRate">Taux de Succès (%):</label>
             <input
@@ -85,6 +94,7 @@
             />
         </div>
 
+        <!-- Taux d'Échec -->
         <div class="form-group">
             <label for="failRate">Taux d'Échec (%):</label>
             <input
@@ -113,10 +123,12 @@
                 {% endfor %}
             </select>
         </div>
+
         <!-- Sélecteur pour les équipes -->
         <div class="form-group">
             <label for="team">Equipe :</label>
             <select id="team" name="team" class="form-control">
+                <option value="" {% if hero.team is null %}selected{% endif %}>-- Aucune équipe --</option>
                 {% for team in teams %}
                     <option 
                         value="{{ team.id }}"
@@ -128,12 +140,11 @@
             </select>
         </div>
 
+        <!-- Boutons d'action -->
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Sauvegarder</button>
             <a href="{{ path('hero_list') }}" class="btn btn-secondary">Annuler</a>
         </div>
     </form>
 </div>
-
-
 {% endblock %}
