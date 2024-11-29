@@ -33,6 +33,8 @@ class Mission
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Team $team = null;
 
+    // Getter and Setter methods
+
     public function getId(): ?int
     {
         return $this->id;

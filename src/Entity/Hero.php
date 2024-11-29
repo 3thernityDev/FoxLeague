@@ -25,9 +25,6 @@ class Hero
     #[ORM\Column(nullable: true)]
     private ?int $age = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $notableMission = null;
-
     #[ORM\Column]
     private ?int $succesRate = null;
 
@@ -90,18 +87,6 @@ class Hero
     public function setAge(?int $age): static
     {
         $this->age = $age;
-
-        return $this;
-    }
-
-    public function getNotableMission(): ?string
-    {
-        return $this->notableMission;
-    }
-
-    public function setNotableMission(?string $notableMission): static
-    {
-        $this->notableMission = $notableMission;
 
         return $this;
     }
