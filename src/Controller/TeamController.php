@@ -53,8 +53,8 @@ class TeamController extends AbstractController
             $data = $request->request;
 
             $team->setName($data->get('name'))
-                ->setSuccessRate((int) $data->get('succesRate'))
-                ->setFailRate((int) $data->get('FailRate'))
+                ->setSuccessRate((int) $data->get('successRate'))
+                ->setFailRate((int) $data->get('failRate'))
                 ->setPopularity($data->get('popularity'));
 
             $this->em->persist($team);
@@ -77,8 +77,8 @@ class TeamController extends AbstractController
             $data = $request->request;
 
             $team->setName($data->get('name'))
-                ->setSuccessRate((int) $data->get('succesRate'))
-                ->setFailRate((int) $data->get('FailRate'))
+                ->setSuccessRate((int) $data->get('successRate'))
+                ->setFailRate((int) $data->get('failRate'))
                 ->setPopularity($data->get('popularity'));
 
             $this->em->flush();
