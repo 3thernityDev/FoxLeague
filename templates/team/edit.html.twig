@@ -4,12 +4,21 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+<link rel="stylesheet" href="{{ asset('styles/flashMessages.css') }}" />
 {% endblock %}
 
 {% block body %}
 <div class="container">
     <h2>Modifier l'Équipe : {{ team.name }}</h2>
 
+        <!-- Bloc pour les messages flash -->
+        {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
     <form method="post" action="{{ path('team_edit', { id: team.id }) }}" class="form-container">
         <div class="form-group">
             <label for="name">Nom de l'équipe :</label>

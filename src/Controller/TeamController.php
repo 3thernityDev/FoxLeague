@@ -52,9 +52,27 @@ class TeamController extends AbstractController
         if ($request->isMethod('POST')) {
             $data = $request->request;
 
+            $successRate = (int) $data->get('successRate');
+            $failRate = (int) $data->get('failRate');
+
+            // On verifie que le taux dechec et de réussite ne puisse déjpasser les 100% et être inferieure a 0
+            if ($successRate < 0 || $successRate > 100 || $failRate < 0 || $failRate > 100) {
+                $this->addFlash('error', 'Les taux de succès et d\'échec doivent être compris entre 0 et 100.');
+                return $this->render('team/new.html.twig', [
+                    'team' => $team,
+                ]);
+            }
+
+            if ($successRate + $failRate > 100) {
+                $this->addFlash('error', 'La somme des taux de succès et d\'échec ne doit pas dépasser 100%.');
+                return $this->render('team/new.html.twig', [
+                    'team' => $team,
+                ]);
+            }
+
             $team->setName($data->get('name'))
-                ->setSuccessRate((int) $data->get('successRate'))
-                ->setFailRate((int) $data->get('failRate'))
+                ->setSuccessRate($successRate)
+                ->setFailRate($failRate)
                 ->setPopularity($data->get('popularity'));
 
             $this->em->persist($team);
@@ -69,6 +87,7 @@ class TeamController extends AbstractController
         ]);
     }
 
+
     // Route pour éditer une équipe
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Team $team): Response
@@ -76,9 +95,27 @@ class TeamController extends AbstractController
         if ($request->isMethod('POST')) {
             $data = $request->request;
 
+            $successRate = (int) $data->get('successRate');
+            $failRate = (int) $data->get('failRate');
+
+            // On verifie que le taux dechec et de réussite ne puisse déjpasser les 100% et être inferieure a 0
+            if ($successRate < 0 || $successRate > 100 || $failRate < 0 || $failRate > 100) {
+                $this->addFlash('error', 'Les taux de succès et d\'échec doivent être compris entre 0 et 100.');
+                return $this->render('team/edit.html.twig', [
+                    'team' => $team,
+                ]);
+            }
+
+            if ($successRate + $failRate > 100) {
+                $this->addFlash('error', 'La somme des taux de succès et d\'échec ne doit pas dépasser 100%.');
+                return $this->render('team/edit.html.twig', [
+                    'team' => $team,
+                ]);
+            }
+
             $team->setName($data->get('name'))
-                ->setSuccessRate((int) $data->get('successRate'))
-                ->setFailRate((int) $data->get('failRate'))
+                ->setSuccessRate($successRate)
+                ->setFailRate($failRate)
                 ->setPopularity($data->get('popularity'));
 
             $this->em->flush();
@@ -92,6 +129,7 @@ class TeamController extends AbstractController
             'team' => $team,
         ]);
     }
+
 
     // Route pour supprimer une équipe
     #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]

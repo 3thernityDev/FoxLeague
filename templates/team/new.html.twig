@@ -2,10 +2,20 @@
 endblock %} {% block stylesheets %}
 <!-- Add your custom stylesheets here -->
 <link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+<link rel="stylesheet" href="{{ asset('styles/flashMessages.css') }}" />
+
 {% endblock %} {% block body %}
 <div class="container">
     <h2>Créer une Nouvelle Équipe</h2>
 
+    <!-- Bloc pour les messages flash -->
+    {% for label, messages in app.flashes %}
+    <div class="alert alert-{{ label }}">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
     <form method="post" action="{{ path('team_new') }}" class="form-container">
         <div class="form-group">
             <label for="name">Nom de l'équipe :</label>
