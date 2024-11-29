@@ -57,35 +57,29 @@
     <section>
         <h2>🏆 Top 3 des Meilleures Équipes</h2>
         <div class="card-container">
-            <!-- Carte 1 (Top 1 - Or) -->
-            <div class="card top-1">
-                <div class="card-header">Équipe: Les Fauves</div>
+            {% for team in topTeams %}
+            <div
+                class="card {% if loop.index == 1 %}top-1{% elseif loop.index == 2 %}top-2{% elseif loop.index == 3 %}top-3{% endif %}"
+            >
+                <div class="card-header">Équipe: {{ team.name }}</div>
                 <div class="card-body">
-                    <h3>Mission la plus célèbre: Sauver le village</h3>
-                    <p>Rareté des pouvoirs: Légendaire</p>
+                    <h3>
+                        Mission la plus célèbre:
+                        {{
+                            team.mission
+                                ? team.mission.name
+                                : "Aucune mission assignée"
+                        }}
+                    </h3>
+                    <p>Taux de succès: {{ team.successRate }}%</p>
                 </div>
-                <div class="card-footer">Top 1 🏅</div>
-            </div>
-
-            <!-- Carte 2 (Top 2 - Argent) -->
-            <div class="card top-2">
-                <div class="card-header">Équipe: Les Ombres</div>
-                <div class="card-body">
-                    <h3>Mission la plus célèbre: Attraper les voleurs</h3>
-                    <p>Rareté des pouvoirs: Épique</p>
+                <div class="card-footer">
+                    {% if loop.index == 1 %} Top 1 🏅 {% elseif loop.index == 2
+                    %} Top 2 🥈 {% elseif loop.index == 3 %} Top 3 🥉 {% endif
+                    %}
                 </div>
-                <div class="card-footer">Top 2 🥈</div>
             </div>
-
-            <!-- Carte 3 (Top 3 - Bronze) -->
-            <div class="card top-3">
-                <div class="card-header">Équipe: Les Flamboyants</div>
-                <div class="card-body">
-                    <h3>Mission la plus célèbre: Éteindre le grand incendie</h3>
-                    <p>Rareté des pouvoirs: Rare</p>
-                </div>
-                <div class="card-footer">Top 3 🥉</div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 </div>
