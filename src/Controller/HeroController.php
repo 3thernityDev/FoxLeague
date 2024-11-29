@@ -66,6 +66,29 @@ class HeroController extends AbstractController
             $power = $this->powerRepository->find($data->get('power'));
             $team = $this->teamRepository->find($data->get('team')); // Peut être null
 
+            // Validation des taux de succès et d'échec
+            $successRate = (int) $data->get('succesRate');
+            $failRate = (int) $data->get('failRate');
+
+            if ($successRate < 0 || $successRate > 100 || $failRate < 0 || $failRate > 100) {
+                $this->addFlash('error', 'Les taux de succès et d\'échec doivent être compris entre 0 et 100.');
+                return $this->render('hero/new.html.twig', [
+                    'hero' => $hero,
+                    'powers' => $powers,
+                    'teams' => $teams,
+                ]);
+            }
+
+            // Vérification que la somme des taux de succès et d'échec ne dépasse pas 100%
+            if ($successRate + $failRate > 100) {
+                $this->addFlash('error', 'La somme des taux de succès et d\'échec ne doit pas dépasser 100%.');
+                return $this->render('hero/new.html.twig', [
+                    'hero' => $hero,
+                    'powers' => $powers,
+                    'teams' => $teams,
+                ]);
+            }
+
             // Si une équipe est sélectionnée, on vérifie qu'elle n'est pas pleine
             if ($team && $team->isFull()) {
                 // Vérifie si l'équipe contient déjà 5 héros
@@ -78,8 +101,8 @@ class HeroController extends AbstractController
                 ->setImage($data->get('image'))
                 ->setSecretIdendity($data->get('secretIdendity'))
             ->setAge((int) $data->get('age'))
-                ->setSuccesRate((int) $data->get('succesRate'))
-                ->setFailRate((int) $data->get('failRate'))
+            ->setSuccesRate($successRate)
+                ->setFailRate($failRate)
                 ->setPowerLink($power)
             ->setTeam($team); // L'équipe peut être null
 
@@ -100,6 +123,7 @@ class HeroController extends AbstractController
         ]);
     }
 
+
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Hero $hero): Response
     {
@@ -110,6 +134,29 @@ class HeroController extends AbstractController
 
             $power = $this->powerRepository->find($data->get('power'));
             $team = $this->teamRepository->find($data->get('team')); // Peut être null
+
+            // Validation des taux de succès et d'échec
+            $successRate = (int) $data->get('succesRate');
+            $failRate = (int) $data->get('failRate');
+
+            if ($successRate < 0 || $successRate > 100 || $failRate < 0 || $failRate > 100) {
+                $this->addFlash('error', 'Les taux de succès et d\'échec doivent être compris entre 0 et 100.');
+                return $this->render('hero/edit.html.twig', [
+                    'hero' => $hero,
+                    'powers' => $this->powerRepository->findAll(),
+                    'teams' => $this->teamRepository->findAll(),
+                ]);
+            }
+
+            // Vérification que la somme des taux de succès et d'échec ne dépasse pas 100%
+            if ($successRate + $failRate > 100) {
+                $this->addFlash('error', 'La somme des taux de succès et d\'échec ne doit pas dépasser 100%.');
+                return $this->render('hero/edit.html.twig', [
+                    'hero' => $hero,
+                    'powers' => $this->powerRepository->findAll(),
+                    'teams' => $this->teamRepository->findAll(),
+                ]);
+            }
 
             // Si une équipe est sélectionnée et différente de l'équipe actuelle, on vérifie qu'elle n'est pas pleine
             if ($team && $team !== $hero->getTeam() && $team->isFull()) {
@@ -123,8 +170,8 @@ class HeroController extends AbstractController
                 ->setImage($data->get('image'))
                 ->setSecretIdendity($data->get('secretIdendity'))
             ->setAge((int) $data->get('age'))
-                ->setSuccesRate((int) $data->get('succesRate'))
-                ->setFailRate((int) $data->get('failRate'))
+            ->setSuccesRate($successRate)
+                ->setFailRate($failRate)
                 ->setPowerLink($power)
             ->setTeam($team); // L'équipe peut être null
 
@@ -143,6 +190,7 @@ class HeroController extends AbstractController
             'teams' => $this->teamRepository->findAll(),
         ]);
     }
+
 
     #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Hero $hero): Response

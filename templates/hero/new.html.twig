@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('styles/flashMessages.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -71,17 +72,6 @@
                 placeholder="Âge du héros"
                 value="{{ app.request.get('age') }}" 
             />
-        </div>
-
-        <div class="form-group">
-            <label for="notableMission">Mission Remarquable :</label>
-            <textarea
-                id="notableMission"
-                name="notableMission"
-                class="form-control"
-                rows="3"
-                placeholder="Description des missions notables"
-            >{{ app.request.get('notableMission') }}</textarea> 
         </div>
 
         <div class="form-group">
