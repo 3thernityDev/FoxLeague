@@ -48,6 +48,27 @@
                         >Pouvoirs</a
                     >
                 </li>
+
+                {% if app.user %}
+                <!-- Lien pour la déconnexion si l'utilisateur est connecté -->
+                <li>
+                    <a href="{{ path('app_logout') }}" class="navbar-link"
+                        >Déconnexion</a
+                    >
+                </li>
+                {% else %}
+                <!-- Lien pour la connexion ou l'inscription si l'utilisateur n'est pas connecté -->
+                <li>
+                    <a href="{{ path('app_login') }}" class="navbar-link"
+                        >Connexion</a
+                    >
+                </li>
+                <li>
+                    <a href="{{ path('app_register') }}" class="navbar-link"
+                        >Inscription</a
+                    >
+                </li>
+                {% endif %}
             </ul>
             <!-- Menu Hamburger -->
             <div class="navbar-hamburger" id="navbar-toggle">
