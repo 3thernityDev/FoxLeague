@@ -10,12 +10,12 @@
         </div>
         {% endif %} {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }},
-            <a href="{{ path('app_logout') }}">Logout</a>
+            Bonjour, {{ app.user.userIdentifier }},
+            <a href="{{ path('app_logout') }}">ce déconnecté ?</a>
         </div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Connecté vous</h1>
 
         <div class="form-group">
             <label for="username">Email</label>
