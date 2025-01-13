@@ -11,14 +11,7 @@
             <i class="fa-solid fa-circle-plus"></i>
         </a>
     </h2>
-    <!-- Bloc pour les messages flash -->
-    {% for label, messages in app.flashes %}
-    <div class="alert alert-{{ label }}">
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-    </div>
-    {% endfor %} {% if missions is empty %}
+    {% if missions is empty %}
     <p>Aucune mission trouvée.</p>
     {% else %}
     <div class="team-card-container">
